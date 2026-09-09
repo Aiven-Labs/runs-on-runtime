@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ SITE_TITLE }}{% endblock %}</title>
+  <!-- UMAMI TRACKER --> 
+  <script defer src="http://localhost:3000/script.js" data-website-id="15b9fe60-0dce-4e4e-b9c4-be7ec5a3bf1b"></script>
+  <script defer src="http://localhost:3000/recorder.js" data-website-id="15b9fe60-0dce-4e4e-b9c4-be7ec5a3bf1b"></script>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="site-title" href="/">{{ SITE_TITLE }}</a>
+    <nav>
+      <a href="/">Directory</a>
+      <a href="/contribute.html">Add a project</a>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      <a href="https://github.com/aiven-labs/runs-on-runtime/edit/main/data/manifest.json">
+        Edit the manifest on GitHub
+      </a>
+    </p>
+  </footer>
+</body>
+</html>

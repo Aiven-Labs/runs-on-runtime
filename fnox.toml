@@ -1,0 +1,8 @@
+default_provider = "age"
+
+[providers.age]
+type = "age"
+recipients = ["age1fcxr08twffk5xcc95gy8a5p3casn3n7wgjvlx87kqvgy8u63wqsqrnsxvj"]
+
+[secrets]
+GITHUB_TOKEN= { provider = "age", value = "YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBXdXJHUFR4MjBwa0hBcEd6MEcvRVZSV1prYjV6K0xIakxhTHlnVE1LS0g0CnM0UzEzU3ArWG93cHNiQk91OFJSQ3dKbENPampVdHV3MjFWNzNYWEZoSTAKLT4gbVUtZ3JlYXNlCnJLQ3VWZHc0elJja1RqSXQ4dwotLS0geDRaaXFXeWVVQXdLVjBGL3g1clB4YUYxVHY5R01uNzUzQjJRZWdpWm5ybwqxUNFK7CKLjvpN4SS+iaAcSA4/ICYAtWeCoD6ppKn89anlGPanzXck74Xwvi/83Dia4/lSBAITl0Nfwvb9wzDGgeh4tDtwGm+gKnG83SsmFqOq4c9BMll7Lg2pralar5veOgFEin/yGDUymk0wB5NizpUN3rONUhpSwgMnPw==" }

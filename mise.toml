@@ -1,0 +1,7 @@
+[tasks.serve]
+description = "Run the render-engine dev server"
+run = "uvx --with=render-engine render-engine serve app:app"
+
+[tasks.build]
+description = "Build the static site with render-engine"
+run = "uv run render-engine build app:app"

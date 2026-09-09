@@ -1,0 +1,30 @@
+{% extends "_base.html" %}
+{% block content %}
+<h1>Repos that run on Aiven Runtime</h1>
+<p>A directory of GitHub repos that run on Aiven Runtime.</p>
+
+<div class="repo-grid">
+  {% for repo in repos %}
+  <article class="repo-card">
+    {% if repo.logo %}
+    <img class="repo-logo" src="{{ repo.logo }}" alt="{{ repo.name }} logo" loading="lazy">
+    {% endif %}
+    <h2><a href="{{ repo.repo_url }}">{{ repo.name }}</a></h2>
+    {% if repo.description %}
+    <p class="repo-description">{{ repo.description }}</p>
+    {% endif %}
+
+    {% if repo.is_template %}
+    <a class="badge badge-template" href="{{ repo.generate_url }}">Use this template</a>
+    {% endif %}
+
+    {% if repo.template_repository %}
+    <p class="repo-template-source">
+      Built from
+      <a href="{{ repo.template_repository.html_url }}">{{ repo.template_repository.full_name }}</a>
+    </p>
+    {% endif %}
+  </article>
+  {% endfor %}
+</div>
+{% endblock %}
