@@ -1,0 +1,13 @@
+[
+  {
+    "name": "Runs on Runtime",
+    "owner": "aiven-labs",
+    "repo": "runs-on-runtime",
+    "description": "This directory site itself — a static site running python/nginx listing repos that run on Aiven Runtime."
+  },
+  {
+    "name": "MCP and Proxy",
+    "owner": "Aiven-Labs",
+    "repo": "runtime-proxy-mcp"
+  }
+]
