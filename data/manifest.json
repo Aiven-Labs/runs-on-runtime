@@ -9,5 +9,10 @@
     "name": "MCP and Proxy",
     "owner": "Aiven-Labs",
     "repo": "runtime-proxy-mcp"
+  },
+  {
+    "name": "Jaeger All-in-One",
+    "owner": "Aiven-Labs",
+    "repo": "jaeger-aiven-apps"
   }
 ]
