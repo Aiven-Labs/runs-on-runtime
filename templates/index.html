@@ -16,13 +16,21 @@
 
   <div class="repo-grid list">
     {% for repo in repos %}
-    <article class="repo-card" data-is-template="{{ repo.is_template | lower }}">
+    <article class="repo-card" data-is-template="{{ repo.is_template | lower }}" data-topics="{{ repo.topics | join(' ') }}">
       {% if repo.logo %}
       <img class="repo-logo" src="{{ repo.logo }}" alt="{{ repo.name }} logo" loading="lazy">
       {% endif %}
       <h2><a class="name" href="{{ repo.repo_url }}">{{ repo.name }}</a></h2>
       {% if repo.description %}
       <p class="repo-description description">{{ repo.description }}</p>
+      {% endif %}
+
+      {% if repo.topics %}
+      <ul class="repo-topics topics">
+        {% for topic in repo.topics %}
+        <li class="badge badge-topic" data-topic="{{ topic }}">{{ topic }}</li>
+        {% endfor %}
+      </ul>
       {% endif %}
 
       {% if repo.is_template %}
@@ -43,24 +51,38 @@
 <script src="/static/js/list.min.js"></script>
 <script>
   var repoList = new List("repo-list", {
-    valueNames: ["name", "description"],
+    valueNames: ["name", "description", { data: ["topics"] }],
     listClass: "list",
   });
 
   var noResults = document.querySelector(".no-results");
   var templatesOnly = document.getElementById("templates-only");
+  var activeTopic = null;
 
-  function applyTemplateFilter() {
-    if (templatesOnly.checked) {
-      repoList.filter(function (item) {
-        return item.elm.dataset.isTemplate === "true";
-      });
-    } else {
-      repoList.filter();
-    }
+  function applyFilters() {
+    repoList.filter(function (item) {
+      if (templatesOnly.checked && item.elm.dataset.isTemplate !== "true") {
+        return false;
+      }
+      if (activeTopic && (" " + item.elm.dataset.topics + " ").indexOf(" " + activeTopic + " ") === -1) {
+        return false;
+      }
+      return true;
+    });
   }
 
-  templatesOnly.addEventListener("change", applyTemplateFilter);
+  templatesOnly.addEventListener("change", applyFilters);
+
+  document.querySelector(".repo-grid").addEventListener("click", function (event) {
+    var badge = event.target.closest(".badge-topic");
+    if (!badge) return;
+    var topic = badge.dataset.topic;
+    activeTopic = activeTopic === topic ? null : topic;
+    document.querySelectorAll(".badge-topic").forEach(function (el) {
+      el.classList.toggle("badge-topic-active", el.dataset.topic === activeTopic);
+    });
+    applyFilters();
+  });
 
   repoList.on("updated", function (list) {
     noResults.hidden = list.matchingItems.length !== 0;

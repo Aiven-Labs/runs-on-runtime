@@ -140,6 +140,32 @@ main {
   color: #fff;
 }
 
+.repo-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+}
+
+.badge-topic {
+  background: var(--border);
+  color: var(--muted);
+  margin-top: 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.badge-topic:hover {
+  color: var(--fg);
+}
+
+.badge-topic-active {
+  background: var(--accent);
+  color: #fff;
+}
+
 .repo-template-source {
   color: var(--muted);
   font-size: 0.8rem;
