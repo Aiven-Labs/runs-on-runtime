@@ -10,6 +10,8 @@ GitHub REST API once to pull:
 - ``template_repository`` -- the repo was generated from a template repo
 - ``topics``            -- the repo's GitHub topics, merged with any topics
                             already set on the manifest entry
+- ``homepage``          -- the repo's configured website, used when the
+                            manifest entry doesn't set ``website``
 
 An optional ``GITHUB_TOKEN`` environment variable is sent as a bearer token
 to raise the rate limit from 60/hr to 5000/hr. Any failure for a single repo
@@ -69,6 +71,7 @@ def fetch_repo_info(owner: str, repo: str, *, client: httpx.Client) -> dict:
             else None
         ),
         "topics": data.get("topics", []),
+        "homepage": data.get("homepage") or None,
     }
 
 
@@ -76,8 +79,8 @@ def enrich_manifest(manifest: list[dict]) -> list[dict]:
     """Merge GitHub API data onto each manifest entry.
 
     Manifest values always win over GitHub-sourced values, except that a
-    logo/description is only ever filled in when the manifest omitted one,
-    and topics are the union of both sources.
+    logo/description/website is only ever filled in when the manifest
+    omitted one, and topics are the union of both sources.
     """
     enriched = []
     with httpx.Client(timeout=10) as client:
@@ -96,6 +99,7 @@ def enrich_manifest(manifest: list[dict]) -> list[dict]:
                 "topics": sorted(
                     set(entry.get("topics", [])) | set(info.get("topics", []))
                 ),
+                "website": entry.get("website") or info.get("homepage") or "",
             }
             enriched.append(merged)
     return enriched

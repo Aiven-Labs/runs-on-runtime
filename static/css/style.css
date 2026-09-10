@@ -121,6 +121,22 @@ main {
   text-decoration: none;
 }
 
+.repo-links {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.25rem 0 0.5rem;
+}
+
+.repo-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--muted);
+}
+
+.repo-link:hover {
+  color: var(--accent);
+}
+
 .repo-description {
   color: var(--muted);
   font-size: 0.9rem;
