@@ -3,28 +3,67 @@
 <h1>Repos that run on Aiven Runtime</h1>
 <p>A directory of GitHub repos that run on Aiven Runtime.</p>
 
-<div class="repo-grid">
-  {% for repo in repos %}
-  <article class="repo-card">
-    {% if repo.logo %}
-    <img class="repo-logo" src="{{ repo.logo }}" alt="{{ repo.name }} logo" loading="lazy">
-    {% endif %}
-    <h2><a href="{{ repo.repo_url }}">{{ repo.name }}</a></h2>
-    {% if repo.description %}
-    <p class="repo-description">{{ repo.description }}</p>
-    {% endif %}
+<div id="repo-list">
+  <div class="repo-controls">
+    <input class="search" type="search" placeholder="Search repos by name or description&hellip;" aria-label="Search repos">
+    <label class="filter-templates">
+      <input type="checkbox" id="templates-only">
+      Templates only
+    </label>
+  </div>
 
-    {% if repo.is_template %}
-    <a class="badge badge-template" href="{{ repo.generate_url }}">Use this template</a>
-    {% endif %}
+  <p class="no-results" hidden>No repos match your search.</p>
 
-    {% if repo.template_repository %}
-    <p class="repo-template-source">
-      Built from
-      <a href="{{ repo.template_repository.html_url }}">{{ repo.template_repository.full_name }}</a>
-    </p>
-    {% endif %}
-  </article>
-  {% endfor %}
+  <div class="repo-grid list">
+    {% for repo in repos %}
+    <article class="repo-card" data-is-template="{{ repo.is_template | lower }}">
+      {% if repo.logo %}
+      <img class="repo-logo" src="{{ repo.logo }}" alt="{{ repo.name }} logo" loading="lazy">
+      {% endif %}
+      <h2><a class="name" href="{{ repo.repo_url }}">{{ repo.name }}</a></h2>
+      {% if repo.description %}
+      <p class="repo-description description">{{ repo.description }}</p>
+      {% endif %}
+
+      {% if repo.is_template %}
+      <a class="badge badge-template" href="{{ repo.generate_url }}">Use this template</a>
+      {% endif %}
+
+      {% if repo.template_repository %}
+      <p class="repo-template-source">
+        Built from
+        <a href="{{ repo.template_repository.html_url }}">{{ repo.template_repository.full_name }}</a>
+      </p>
+      {% endif %}
+    </article>
+    {% endfor %}
+  </div>
 </div>
+
+<script src="/static/js/list.min.js"></script>
+<script>
+  var repoList = new List("repo-list", {
+    valueNames: ["name", "description"],
+    listClass: "list",
+  });
+
+  var noResults = document.querySelector(".no-results");
+  var templatesOnly = document.getElementById("templates-only");
+
+  function applyTemplateFilter() {
+    if (templatesOnly.checked) {
+      repoList.filter(function (item) {
+        return item.elm.dataset.isTemplate === "true";
+      });
+    } else {
+      repoList.filter();
+    }
+  }
+
+  templatesOnly.addEventListener("change", applyTemplateFilter);
+
+  repoList.on("updated", function (list) {
+    noResults.hidden = list.matchingItems.length !== 0;
+  });
+</script>
 {% endblock %}
