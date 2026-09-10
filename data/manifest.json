@@ -8,7 +8,8 @@
   {
     "name": "MCP and Proxy",
     "owner": "Aiven-Labs",
-    "repo": "runtime-proxy-mcp"
+    "repo": "runtime-proxy-mcp",
+    "description": "POC for a MCP server behind a proxy so that it can scale horizontally as well as vertically."
   },
   {
     "name": "Jaeger All-in-One",
