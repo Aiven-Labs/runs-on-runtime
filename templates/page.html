@@ -3,8 +3,12 @@
 {% block title %}{{ title }} · {{ SITE_TITLE }}{% endblock %}
 
 {% block content %}
-<article class="static-page">
-  <h1>{{ title }}</h1>
+<section class="static-page-hero">
+  <div class="container">
+    <h1>{{ title }}</h1>
+  </div>
+</section>
+<article class="static-page container">
   {{ content }}
 </article>
 {% endblock %}
