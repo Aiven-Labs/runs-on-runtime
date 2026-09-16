@@ -29,6 +29,13 @@
     "description": "A very basic anomaly detection example, using Apache Kafka® Streams. It checks for Apache Avro® messages containing a field outside specified minimum and maximum values, and copies them to the output topic. It's more specific for this than the general Kafka Streams examples. A program is provided to write an example data stream."
   },
   {
+    "name": "Inventory Demo - React and Go, PG and Valkey",
+    "owner": "Aiven-Labs",
+    "repo": "inventory-demo-react-pg-valkey",
+    "description": "A product inventory demo, showcasing multiple services communicating, with a Node.js web backend, a React frontend, a PostgreSQL database, a Valkey cache, a Valkey queue, and a Go-based background job service."
+
+  },
+  {
     "name": "Community Event Search",
     "owner": "notanotherpizza",
     "repo": "meetup-map",
