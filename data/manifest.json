@@ -15,5 +15,11 @@
     "name": "Jaeger All-in-One",
     "owner": "Aiven-Labs",
     "repo": "jaeger-aiven-apps"
+  },
+  {
+    "name": "Apache Kafka® Streams",
+    "owner": "Aiven-Labs",
+    "repo": "kafka-streams-example",
+    "description": "Examples of logging, copying and filtering (copying and altering) Apache Avro® messages, using Apache Kafka® streams and a schema registry.Kafka Streams is the standard library to use when taking data from one Kafka topic and writing an amended version to another, in real time. It is written in Java and kept up to date with Kafka itself."
   }
 ]
