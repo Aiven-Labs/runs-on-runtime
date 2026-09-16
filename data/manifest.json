@@ -23,6 +23,12 @@
     "description": "Examples of logging, copying and filtering (copying and altering) Apache Avro® messages, using Apache Kafka® streams and a schema registry.Kafka Streams is the standard library to use when taking data from one Kafka topic and writing an amended version to another, in real time. It is written in Java and kept up to date with Kafka itself."
   },
   {
+    "name": "Apache Kafka® Streams: Anomaly Detection",
+    "owner": "Aiven-Labs",
+    "repo": "anomaly-detection-example",
+    "description": "A very basic anomaly detection example, using Apache Kafka® Streams. It checks for Apache Avro® messages containing a field outside specified minimum and maximum values, and copies them to the output topic. It's more specific for this than the general Kafka Streams examples. A program is provided to write an example data stream."
+  },
+  {
     "name": "Community Event Search",
     "owner": "notanotherpizza",
     "repo": "meetup-map",
