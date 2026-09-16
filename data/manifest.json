@@ -21,5 +21,11 @@
     "owner": "Aiven-Labs",
     "repo": "kafka-streams-example",
     "description": "Examples of logging, copying and filtering (copying and altering) Apache Avro® messages, using Apache Kafka® streams and a schema registry.Kafka Streams is the standard library to use when taking data from one Kafka topic and writing an amended version to another, in real time. It is written in Java and kept up to date with Kafka itself."
+  },
+  {
+    "name": "Community Event Search",
+    "owner": "notanotherpizza",
+    "repo": "meetup-map",
+    "description": "Searches and maps community events across Meetup and Luma, with filters for location, topic, and group size. Live at https://search.notanother.pizza."
   }
 ]
