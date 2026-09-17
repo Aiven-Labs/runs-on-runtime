@@ -77,7 +77,7 @@
           {% if repo.is_template %}
           <a class="btn btn-secondary" href="{{ repo.generate_url }}">Use this template</a>
           {% else %}
-          <a class="btn btn-secondary" href="{{ repo.repo_url }}/fork" target="_blank" rel="noreferrer">Fork on GitHub</a>
+          <a class="btn btn-secondary" href="{{ repo.fork_url }}" target="_blank" rel="noreferrer">Fork on GitHub</a>
           {% endif %}
         </div>
 
