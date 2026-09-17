@@ -1,0 +1,29 @@
+- uses: aiven/deploy-aiven-app/redeploy@v1
+  with:
+    # Aiven API token.
+    # Required.
+    aiven-token: ${{ secrets.AIVEN_TOKEN }}
+
+    # Aiven project name.
+    # Required.
+    project: "jay-miller"
+
+    # Application service name (must already exist).
+    # Required.
+    service-name: "runs-on-runtime"
+
+    # Git branch or tag to deploy. If omitted, redeploys the current branch.
+    # Default: ''
+    branch: ""
+
+    # Tag the service with version=<branch> after a successful deploy.
+    # Default: 'false'
+    tag-version: "false"
+
+    # Wait for deploy to complete.
+    # Default: 'true'
+    wait: "true"
+
+    # Max wait time in seconds.
+    # Default: '600'
+    timeout: "600"
