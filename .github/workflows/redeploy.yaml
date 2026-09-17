@@ -1,29 +1,40 @@
-- uses: aiven/deploy-aiven-app/redeploy@v1
-  with:
-    # Aiven API token.
-    # Required.
-    aiven-token: ${{ secrets.AIVEN_TOKEN }}
+name: Redeploy
 
-    # Aiven project name.
-    # Required.
-    project: "jay-miller"
+on:
+  push:
+    branches:
+      - main
 
-    # Application service name (must already exist).
-    # Required.
-    service-name: "runs-on-runtime"
+jobs:
+  redeploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: aiven/deploy-aiven-app/redeploy@v1
+        with:
+          # Aiven API token.
+          # Required.
+          aiven-token: ${{ secrets.AIVEN_TOKEN }}
 
-    # Git branch or tag to deploy. If omitted, redeploys the current branch.
-    # Default: ''
-    branch: ""
+          # Aiven project name.
+          # Required.
+          project: "jay-miller"
 
-    # Tag the service with version=<branch> after a successful deploy.
-    # Default: 'false'
-    tag-version: "false"
+          # Application service name (must already exist).
+          # Required.
+          service-name: "runs-on-runtime"
 
-    # Wait for deploy to complete.
-    # Default: 'true'
-    wait: "true"
+          # Git branch or tag to deploy. If omitted, redeploys the current branch.
+          # Default: ''
+          branch: ""
 
-    # Max wait time in seconds.
-    # Default: '600'
-    timeout: "600"
+          # Tag the service with version=<branch> after a successful deploy.
+          # Default: 'false'
+          tag-version: "false"
+
+          # Wait for deploy to complete.
+          # Default: 'true'
+          wait: "true"
+
+          # Max wait time in seconds.
+          # Default: '600'
+          timeout: "600"
