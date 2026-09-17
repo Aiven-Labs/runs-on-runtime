@@ -6,4 +6,10 @@ requires-python = ">=3.13"
 dependencies = ["httpx>=0.28.1", "render-engine>=2026.6.1", "render-engine-cli"]
 
 [dependency-groups]
-dev = ["ruff>=0.16.5"]
+dev = [
+    "pytest>=9.1.1",
+    "ruff>=0.16.5",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

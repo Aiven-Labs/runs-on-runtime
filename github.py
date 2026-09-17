@@ -30,6 +30,7 @@ import httpx
 logger = logging.getLogger(__name__)
 
 GITHUB_API = "https://api.github.com"
+MAX_DESCRIPTION_LENGTH = 350
 
 
 def _headers() -> dict[str, str]:
@@ -86,12 +87,16 @@ def enrich_manifest(manifest: list[dict]) -> list[dict]:
     with httpx.Client(timeout=10) as client:
         for entry in manifest:
             info = fetch_repo_info(entry["owner"], entry["repo"], client=client)
+            description = entry.get("description") or info.get("github_description") or ""
+            if len(description) > MAX_DESCRIPTION_LENGTH:
+                raise ValueError(
+                    f"{entry['name']!r} description is {len(description)} chars, "
+                    f"over the {MAX_DESCRIPTION_LENGTH} char limit"
+                )
             merged = {
                 **entry,
                 "repo_url": f"https://github.com/{entry['owner']}/{entry['repo']}",
-                "description": entry.get("description")
-                or info.get("github_description")
-                or "",
+                "description": description,
                 "logo": entry.get("logo") or info.get("avatar_url") or "",
                 "is_template": info.get("is_template", False),
                 "generate_url": info.get("generate_url"),
