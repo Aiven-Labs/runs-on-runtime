@@ -64,9 +64,11 @@ def fetch_repo_info(owner: str, repo: str, *, client: httpx.Client) -> dict:
         "github_description": data.get("description"),
         "avatar_url": data.get("owner", {}).get("avatar_url"),
         "is_template": data.get("is_template", False),
-        "generate_url": f"https://github.com/{owner}/{repo}/generate"
-        if data.get("is_template")
-        else None,
+        "generate_url": (
+            f"https://github.com/{owner}/{repo}/generate"
+            if data.get("is_template")
+            else None
+        ),
         "template_repository": (
             {
                 "full_name": template_repository["full_name"],
@@ -99,7 +101,9 @@ def enrich_manifest(manifest: list[dict]) -> list[dict]:
             info = fetch_repo_info(entry["owner"], entry["repo"], client=client)
             base_url = f"https://github.com/{entry['owner']}/{entry['repo']}"
             branch = entry.get("branch")
-            description = entry.get("description") or info.get("github_description") or ""
+            description = (
+                entry.get("description") or info.get("github_description") or ""
+            )
             if len(description) > MAX_DESCRIPTION_LENGTH:
                 raise ValueError(
                     f"{entry['name']!r} description is {len(description)} chars, "
