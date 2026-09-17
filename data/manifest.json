@@ -44,5 +44,11 @@
     "owner": "notanotherpizza",
     "repo": "meetup-map",
     "description": "Searches and maps community events across Meetup and Luma, with filters for location, topic, and group size. Uses PostgreSQL, Kafka, and Runtime (fetch workers, sink process). Live at https://search.notanother.pizza."
-  }
+  },
+    {
+    "name": "Deploy Umami",
+    "owner": "kjaymiller",
+    "repo": "umami",
+    "branch": "aiven-runtime",
+  },
 ]
