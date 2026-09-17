@@ -49,6 +49,6 @@
     "name": "Deploy Umami",
     "owner": "kjaymiller",
     "repo": "umami",
-    "branch": "aiven-runtime",
+    "branch": "aiven-runtime"
   }
 ]
