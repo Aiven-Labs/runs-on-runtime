@@ -55,5 +55,10 @@
     "name": "n8n",
     "owner": "Aiven-Labs",
     "repo": "aiven-runtime-n8n"
+  },
+  {
+    "name": "Airflow",
+    "owner": "Aiven-Labs",
+    "repo": "aiven-runtime-airflow"
   }
 ]
