@@ -60,5 +60,10 @@
     "name": "Airflow",
     "owner": "Aiven-Labs",
     "repo": "aiven-runtime-airflow"
+  },
+  {
+    "name": "FastAPI App with PG DB and Valkey Cache",
+    "owner": "kjaymiller",
+    "repo": "fastAPI-db-cache-template"
   }
 ]
