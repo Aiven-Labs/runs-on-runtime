@@ -42,6 +42,27 @@ git push origin add-my-project
 | `repo` | yes | GitHub repo name. |
 | `description` | no | Falls back to the repo's GitHub description. |
 | `logo` | no | Path or URL. Falls back to the owner's GitHub avatar. Local images go in `static/images/`. |
+| `branch` | no | Points the card's links at a non-default branch instead of the repo's default branch. |
+
+Set `branch` when your example only works from a branch other than the
+default — e.g. it needs Aiven Runtime-specific changes that haven't landed
+on `main` yet:
+
+```json
+{
+  "name": "My Cool App",
+  "owner": "my-github-username",
+  "repo": "my-cool-app",
+  "branch": "aiven-runtime"
+}
+```
+
+This changes the "View code" and card title links to
+`github.com/owner/repo/tree/<branch>`, and the "Fork on GitHub" link to
+`github.com/owner/repo/fork?ref=<branch>` so the fork starts from that
+branch. It does not affect the GitHub API lookups (description, topics,
+template detection) — those are always read from the repo as a whole,
+regardless of branch.
 
 There's no `template_url` field. If your repo is a
 [GitHub template repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository),
