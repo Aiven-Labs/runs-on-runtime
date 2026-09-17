@@ -1,73 +1,95 @@
 {% extends "_base.html" %}
 {% block content %}
-<h1>Repos that run on Aiven Runtime</h1>
-<p>A directory of GitHub repos that run on Aiven Runtime.</p>
+<section class="page-hero">
+  <div class="container">
+    <h1>Repos that run on Aiven Runtime</h1>
+    <p>GitHub repositories that are deployed on Aiven Runtime. Fork one to test it out for yourself, or share something you have created by adding your project.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="/contribute.html">Add your project</a>
+      <a class="btn btn-secondary" href="https://aiven.io/docs/products/runtime" target="_blank" rel="noreferrer">Documentation</a>
+    </div>
+  </div>
+</section>
 
 <div id="repo-list">
-  <div class="repo-controls">
-    <input class="search" type="search" placeholder="Search repos by name or description&hellip;" aria-label="Search repos">
-    <label class="filter-templates">
-      <input type="checkbox" id="templates-only">
-      Templates only
-    </label>
-  </div>
+  <div class="container">
+    <div class="toolbar">
+      <label class="search-field">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <circle cx="7" cy="7" r="5" stroke="#B5B5B7" stroke-width="1.5"></circle>
+          <path d="M11 11l3.5 3.5" stroke="#B5B5B7" stroke-width="1.5" stroke-linecap="round"></path>
+        </svg>
+        <input class="search" type="search" placeholder="Search repos, owners, topics" aria-label="Search repos">
+      </label>
+      <label class="filter-templates">
+        <input type="checkbox" id="templates-only">
+        <span class="switch" aria-hidden="true"></span>
+        Templates only
+      </label>
+      <div class="count-label" id="repo-count">{{ repos | length }} REPOS</div>
+    </div>
 
-  <p class="no-results" hidden>No repos match your search.</p>
+    <div class="empty-state" id="empty-state" hidden>
+      <div class="eyebrow">{ }</div>
+      <div class="title">No repos match</div>
+      <p>Try a different search term, or add your project to the directory.</p>
+      <div class="empty-state-actions">
+        <button type="button" class="btn btn-secondary" id="clear-filters">Clear filters</button>
+        <a class="btn btn-primary" href="/contribute.html">Add your project</a>
+      </div>
+    </div>
 
-  <div class="repo-grid list">
-    {% for repo in repos %}
-    <article class="repo-card" data-is-template="{{ repo.is_template | lower }}" data-topics="{{ repo.topics | join(' ') }}">
-      {% if repo.logo %}
-      <img class="repo-logo" src="{{ repo.logo }}" alt="{{ repo.name }} logo" loading="lazy">
-      {% endif %}
-      <h2>
-        <a class="name" href="{{ repo.repo_url }}">{{ repo.name }}</a>
-      </h2>
-      <p class="repo-links">
-        <a class="repo-link" href="{{ repo.repo_url }}" title="View on GitHub" aria-label="View {{ repo.name }} on GitHub">
-          <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true">
-            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
-              0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13
-              -.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07
-              -1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82
-              .64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12
-              .51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2
-              0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/>
-          </svg>
-        </a>
-        {% if repo.website %}
-        <a class="repo-link" href="{{ repo.website }}" title="Visit website" aria-label="Visit {{ repo.name }} website">
-          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
-            <circle cx="8" cy="8" r="7"/>
-            <path d="M1 8h14M8 1c1.86 1.99 2.9 4.5 2.9 7s-1.04 5.01-2.9 7c-1.86-1.99-2.9-4.5-2.9-7s1.04-5.01 2.9-7Z"/>
-          </svg>
-        </a>
+    <div class="repo-grid list">
+      {% for repo in repos %}
+      <article class="repo-card" data-is-template="{{ repo.is_template | lower }}" data-topics="{{ repo.topics | join(' ') }}">
+        <div class="repo-card-head">
+          {% if repo.logo %}
+          <img class="repo-logo" src="{{ repo.logo }}" alt="" loading="lazy">
+          {% endif %}
+          <div class="repo-meta">
+            <h2><a class="name" href="{{ repo.repo_url }}">{{ repo.name }}</a></h2>
+            <div class="repo-slug">{{ repo.owner }}/{{ repo.repo }}</div>
+          </div>
+          {% if repo.is_template %}
+          <span class="badge-template">Template</span>
+          {% endif %}
+        </div>
+
+        {% if repo.description %}
+        <p class="repo-description description">{{ repo.description }}</p>
+        {% else %}
+        <p class="repo-description description"></p>
         {% endif %}
-      </p>
-      {% if repo.description %}
-      <p class="repo-description description">{{ repo.description }}</p>
-      {% endif %}
 
-      {% if repo.topics %}
-      <ul class="repo-topics topics">
-        {% for topic in repo.topics %}
-        <li class="badge badge-topic" data-topic="{{ topic }}">{{ topic }}</li>
-        {% endfor %}
-      </ul>
-      {% endif %}
+        {% if repo.topics %}
+        <ul class="repo-topics topics">
+          {% for topic in repo.topics %}
+          <li>{{ topic }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
 
-      {% if repo.is_template %}
-      <a class="badge badge-template" href="{{ repo.generate_url }}">Use this template</a>
-      {% endif %}
+        <div class="repo-actions">
+          {% if repo.website %}
+          <a class="btn btn-ghost" href="{{ repo.website }}" target="_blank" rel="noreferrer">Website</a>
+          {% endif %}
+          <a class="btn btn-ghost" href="{{ repo.repo_url }}" target="_blank" rel="noreferrer">View code</a>
+          {% if repo.is_template %}
+          <a class="btn btn-secondary" href="{{ repo.generate_url }}">Use this template</a>
+          {% else %}
+          <a class="btn btn-secondary" href="{{ repo.repo_url }}/fork" target="_blank" rel="noreferrer">Fork on GitHub</a>
+          {% endif %}
+        </div>
 
-      {% if repo.template_repository %}
-      <p class="repo-template-source">
-        Built from
-        <a href="{{ repo.template_repository.html_url }}">{{ repo.template_repository.full_name }}</a>
-      </p>
-      {% endif %}
-    </article>
-    {% endfor %}
+        {% if repo.template_repository %}
+        <p class="repo-template-source">
+          Built from
+          <a href="{{ repo.template_repository.html_url }}">{{ repo.template_repository.full_name }}</a>
+        </p>
+        {% endif %}
+      </article>
+      {% endfor %}
+    </div>
   </div>
 </div>
 
@@ -78,8 +100,11 @@
     listClass: "list",
   });
 
-  var noResults = document.querySelector(".no-results");
+  var totalRepos = {{ repos | length }};
+  var emptyState = document.getElementById("empty-state");
+  var countLabel = document.getElementById("repo-count");
   var templatesOnly = document.getElementById("templates-only");
+  var searchInput = document.querySelector(".search");
   var activeTopic = null;
 
   function applyFilters() {
@@ -97,18 +122,33 @@
   templatesOnly.addEventListener("change", applyFilters);
 
   document.querySelector(".repo-grid").addEventListener("click", function (event) {
-    var badge = event.target.closest(".badge-topic");
-    if (!badge) return;
-    var topic = badge.dataset.topic;
+    var topicEl = event.target.closest(".repo-topics li");
+    if (!topicEl) return;
+    var topic = topicEl.textContent.trim();
     activeTopic = activeTopic === topic ? null : topic;
-    document.querySelectorAll(".badge-topic").forEach(function (el) {
-      el.classList.toggle("badge-topic-active", el.dataset.topic === activeTopic);
+    document.querySelectorAll(".repo-topics li").forEach(function (el) {
+      el.classList.toggle("active", el.textContent.trim() === activeTopic);
+    });
+    applyFilters();
+  });
+
+  document.getElementById("clear-filters").addEventListener("click", function () {
+    searchInput.value = "";
+    repoList.search();
+    templatesOnly.checked = false;
+    activeTopic = null;
+    document.querySelectorAll(".repo-topics li.active").forEach(function (el) {
+      el.classList.remove("active");
     });
     applyFilters();
   });
 
   repoList.on("updated", function (list) {
-    noResults.hidden = list.matchingItems.length !== 0;
+    var matching = list.matchingItems.length;
+    emptyState.hidden = matching !== 0;
+    countLabel.textContent = matching === totalRepos
+      ? totalRepos + " REPOS"
+      : matching + " OF " + totalRepos + " REPOS";
   });
 </script>
 {% endblock %}
