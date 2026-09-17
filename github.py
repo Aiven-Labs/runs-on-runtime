@@ -13,6 +13,10 @@ GitHub REST API once to pull:
 - ``homepage``          -- the repo's configured website, used when the
                             manifest entry doesn't set ``website``
 
+A manifest entry may also set ``branch`` to point ``repo_url``/``fork_url``
+at a non-default branch, e.g. when an example needed Aiven Runtime-specific
+changes that only live on a branch.
+
 An optional ``GITHUB_TOKEN`` environment variable is sent as a bearer token
 to raise the rate limit from 60/hr to 5000/hr. Any failure for a single repo
 (network error, 404, rate limit) is logged and that entry falls back to
@@ -82,11 +86,19 @@ def enrich_manifest(manifest: list[dict]) -> list[dict]:
     Manifest values always win over GitHub-sourced values, except that a
     logo/description/website is only ever filled in when the manifest
     omitted one, and topics are the union of both sources.
+
+    An entry may set ``branch`` when its example lives on a non-default
+    branch (e.g. a repo that needed Aiven Runtime-specific changes that
+    haven't landed on the default branch yet). This only changes the
+    generated URLs -- GitHub's repo/topics/template API data is branch-
+    independent.
     """
     enriched = []
     with httpx.Client(timeout=10) as client:
         for entry in manifest:
             info = fetch_repo_info(entry["owner"], entry["repo"], client=client)
+            base_url = f"https://github.com/{entry['owner']}/{entry['repo']}"
+            branch = entry.get("branch")
             description = entry.get("description") or info.get("github_description") or ""
             if len(description) > MAX_DESCRIPTION_LENGTH:
                 raise ValueError(
@@ -95,7 +107,8 @@ def enrich_manifest(manifest: list[dict]) -> list[dict]:
                 )
             merged = {
                 **entry,
-                "repo_url": f"https://github.com/{entry['owner']}/{entry['repo']}",
+                "repo_url": f"{base_url}/tree/{branch}" if branch else base_url,
+                "fork_url": f"{base_url}/fork?ref={branch}" if branch else f"{base_url}/fork",
                 "description": description,
                 "logo": entry.get("logo") or info.get("avatar_url") or "",
                 "is_template": info.get("is_template", False),

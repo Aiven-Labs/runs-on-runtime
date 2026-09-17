@@ -49,6 +49,24 @@ optional and falls back to data pulled from the GitHub API at build time
 - **logo** *(optional)* — path or URL to a logo image. If omitted, the
   owner's GitHub avatar is used instead. To add a local image, drop it in
   `static/images/` and reference it as `/static/images/your-file.png`.
+- **branch** *(optional)* — points the card's links at a non-default branch,
+  for example when your example needs Aiven Runtime-specific changes that
+  haven't landed on the default branch yet:
+
+  ```json
+  {
+    "name": "My Cool App",
+    "owner": "my-github-username",
+    "repo": "my-cool-app",
+    "branch": "aiven-runtime"
+  }
+  ```
+
+  This changes the card title and "View code" links to
+  `github.com/owner/repo/tree/<branch>`, and "Fork on GitHub" to
+  `github.com/owner/repo/fork?ref=<branch>` so the fork starts from that
+  branch. GitHub API-sourced data (description, topics, template detection)
+  is unaffected, since that's always read from the repo as a whole.
 
 There's no `template_url` field — if your repo is marked as a
 [GitHub template repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository),
