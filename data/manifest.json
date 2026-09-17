@@ -8,8 +8,7 @@
   {
     "name": "MCP and Proxy",
     "owner": "Aiven-Labs",
-    "repo": "runtime-proxy-mcp",
-    "description": "POC for a MCP server behind a proxy so that it can scale horizontally as well as vertically."
+    "repo": "fastmcp-caddy-proxy"
   },
   {
     "name": "Jaeger All-in-One",
@@ -27,5 +26,23 @@
     "owner": "Aiven-Labs",
     "repo": "anomaly-detection-example",
     "description": "A very basic anomaly detection example, using Apache Kafka® Streams. It checks for Apache Avro® messages containing a field outside specified minimum and maximum values, and copies them to the output topic. It's more specific for this than the general Kafka Streams examples. A program is provided to write an example data stream."
+  },
+  {
+    "name": "Type text, find pictures, using CLIP, PostgreSQL® and pgvector",
+    "owner": "Aiven-Labs",
+    "repo": "app-multimodal-search-CLIP-PostgreSQL ",
+    "description": "Uses the OpenAI CLIP model to generate embeddings for a pre-prepared selection of images, and stores them in PostgreSQL with pgvector. A web app lets the user enter a phrase, the CLIP model generates its embedding, and an SQL query is used to find the four images with the closest embedding to the text, which are shown to the user."
+  },
+  {
+    "name": "Inventory Demo - React and Go, PG and Valkey",
+    "owner": "Aiven-Labs",
+    "repo": "inventory-demo-react-pg-valkey",
+    "description": "A product inventory demo, showcasing multiple services communicating, with a Node.js web backend, a React frontend, a PostgreSQL database, a Valkey cache, a Valkey queue, and a Go-based background job service."
+  },
+  {
+    "name": "Community Event Search",
+    "owner": "notanotherpizza",
+    "repo": "meetup-map",
+    "description": "Searches and maps community events across Meetup and Luma, with filters for location, topic, and group size. Uses PostgreSQL, Kafka, and Runtime (fetch workers, sink process). Live at https://search.notanother.pizza."
   }
 ]

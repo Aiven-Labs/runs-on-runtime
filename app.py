@@ -19,10 +19,7 @@ MANIFEST_PATH = Path("data/manifest.json")
 
 app = Site(output_path="output", static_paths={"static"})
 app.site_vars.update(
-    {
-        "SITE_TITLE": "Runs on Runtime",
-        # "SITE_URL": "https://runs-on-runtime.aivenlabs.dev",
-    }
+    {"SITE_TITLE": "Runs on Runtime", "SITE_URL": "https://templates.aiven.io"}
 )
 
 
