@@ -76,6 +76,7 @@
   --aq-text-default: var(--aq-grey-10);
   --aq-text-opposite: var(--aq-grey-90);
   --aq-text-primary: var(--aq-primary-30);
+  --aq-text-primary-hover: var(--aq-primary-40);
 
   /* Buttons (dark theme) */
   --aq-btn-primary-default: var(--aq-grey-5);
@@ -114,6 +115,43 @@
   --shadow-overlay: 0 4px 16px rgba(0, 0, 0, 0.25), 0 14px 32px rgba(0, 0, 0, 0.2);
 }
 
+/* Light theme — same Aquarium palette, semantic surfaces flipped */
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+
+    --aq-icon-mono: var(--aq-grey-90);
+
+    --aq-bg-body: var(--aq-grey-5);
+    --aq-bg-layer: #FFFFFF;
+    --aq-bg-medium: var(--aq-grey-10);
+    --aq-bg-intense: var(--aq-grey-20);
+    --aq-bg-primary-default: var(--aq-primary-0);
+    --aq-bg-primary-graphic: var(--aq-primary-40);
+    --aq-bg-backdrop: rgb(22 23 26 / 50%);
+
+    --aq-border-muted: var(--aq-grey-20);
+    --aq-border-default: var(--aq-grey-30);
+    --aq-border-intense: var(--aq-grey-60);
+    --aq-border-focus: var(--aq-primary-50);
+
+    --aq-text-inactive: var(--aq-grey-50);
+    --aq-text-muted: var(--aq-grey-60);
+    --aq-text-default: var(--aq-grey-90);
+    --aq-text-opposite: var(--aq-grey-5);
+    --aq-text-primary: var(--aq-primary-60);
+    --aq-text-primary-hover: var(--aq-primary-90);
+
+    --aq-btn-primary-default: var(--aq-grey-90);
+    --aq-btn-primary-hover: var(--aq-grey-80);
+    --aq-btn-primary-active: var(--aq-grey-70);
+    --aq-btn-secondary-border: var(--aq-primary-50);
+    --aq-btn-secondary-border-hover: var(--aq-primary-60);
+
+    --shadow-overlay: 0 4px 16px rgba(0, 0, 0, 0.08), 0 14px 32px rgba(0, 0, 0, 0.06);
+  }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -134,7 +172,7 @@ a {
 }
 
 a:hover {
-  color: var(--aq-primary-40);
+  color: var(--aq-text-primary-hover);
 }
 
 input::placeholder {
@@ -144,7 +182,7 @@ input::placeholder {
 input:focus,
 button:focus-visible,
 a:focus-visible {
-  outline: 2px solid var(--aq-primary-30);
+  outline: 2px solid var(--aq-border-focus);
   outline-offset: 2px;
 }
 
@@ -186,7 +224,7 @@ a:focus-visible {
 
 .btn-secondary:hover {
   border-color: var(--aq-btn-secondary-border-hover);
-  color: var(--aq-primary-40);
+  color: var(--aq-text-primary-hover);
 }
 
 .btn-ghost {
