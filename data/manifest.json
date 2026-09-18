@@ -77,5 +77,12 @@
     "owner": "kjaymiller",
     "repo": "fastAPI-db-cache-template",
     "added": "2026-09-17"
+  },
+  {
+    "name": "Preparing Data for OpenSearch and RAG",
+    "owner": "Aiven-Labs",
+    "repo": "preparing-data-for-opensearch-and-rag",
+    "added": "2026-09-18",
+    "description": "A FastAPI service that chunks, embeds, and indexes uploaded text/PDF documents into Aiven for OpenSearch for RAG, with local dev support via OpenSearch and RustFS (S3-compatible storage) in docker-compose."
   }
 ]
