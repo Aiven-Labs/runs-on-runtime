@@ -12,9 +12,17 @@ GitHub REST API once to pull:
 - ``is_template``       -- the repo is itself usable as a GitHub template
 - ``template_repository`` -- the repo was generated from a template repo
 - ``topics``            -- the repo's GitHub topics, merged with any topics
-                            already set on the manifest entry
+                            already set on the manifest entry, then folded
+                            through ``data/topic_aliases.json`` so related
+                            topics (e.g. ``pg``/``postgres``/``postgresql``,
+                            or any ``kafka-*``) count as one topic
 - ``homepage``          -- the repo's configured website, used when the
                             manifest entry doesn't set ``website``
+- ``pushed_at``         -- when the default branch was last pushed to,
+                            exposed as ``updated_at``/``updated_display``
+
+The manifest-required ``added`` date (validated by ``schema.py``) is passed
+through as ``added_at``/``added_display``, formatted the same way.
 
 A manifest entry may also set ``branch`` to point ``repo_url``/``fork_url``
 at a non-default branch, e.g. when an example needed Aiven Runtime-specific
@@ -29,8 +37,11 @@ the build.
 
 from __future__ import annotations
 
+import json
 import logging
 import os
+from datetime import datetime
+from pathlib import Path
 
 import httpx
 
@@ -40,6 +51,35 @@ logger = logging.getLogger(__name__)
 
 GITHUB_API = "https://api.github.com"
 MAX_DESCRIPTION_LENGTH = 350
+TOPIC_ALIASES_PATH = Path("data/topic_aliases.json")
+
+
+def _load_topic_alias_rules() -> list[dict]:
+    """Load topic-merging rules from ``data/topic_aliases.json``.
+
+    Each rule has a ``canonical`` name and, optionally, exact ``aliases``,
+    topic ``prefixes``, and/or ``contains`` substrings that should be folded
+    into it (e.g. any topic containing ``kafka`` collapses into ``kafka``).
+    Missing/empty file means no merging happens.
+    """
+    if not TOPIC_ALIASES_PATH.exists():
+        return []
+    return json.loads(TOPIC_ALIASES_PATH.read_text())
+
+
+_TOPIC_ALIAS_RULES = _load_topic_alias_rules()
+
+
+def canonicalize_topic(topic: str) -> str:
+    for rule in _TOPIC_ALIAS_RULES:
+        canonical = rule["canonical"]
+        if topic == canonical or topic in rule.get("aliases", []):
+            return canonical
+        if any(topic.startswith(prefix) for prefix in rule.get("prefixes", [])):
+            return canonical
+        if any(substring in topic for substring in rule.get("contains", [])):
+            return canonical
+    return topic
 
 
 def _headers() -> dict[str, str]:
@@ -84,7 +124,26 @@ def fetch_repo_info(owner: str, repo: str, *, client: httpx.Client) -> dict:
         ),
         "topics": data.get("topics", []),
         "homepage": data.get("homepage") or None,
+        "pushed_at": data.get("pushed_at"),
     }
+
+
+def _format_updated(pushed_at: str | None) -> str:
+    """Render a GitHub ``pushed_at`` timestamp as e.g. "Feb 3, 2026".
+
+    Returns an empty string if there's nothing to show, so templates can
+    fall back gracefully for repos the GitHub lookup failed for.
+    """
+    if not pushed_at:
+        return ""
+    return datetime.fromisoformat(pushed_at).strftime("%b %-d, %Y")
+
+
+def _format_added(added: str | None) -> str:
+    """Render a manifest ``added`` date (``YYYY-MM-DD``) as e.g. "Feb 3, 2026"."""
+    if not added:
+        return ""
+    return datetime.fromisoformat(added).strftime("%b %-d, %Y")
 
 
 def enrich_manifest(manifest: list[dict]) -> list[dict]:
@@ -117,7 +176,8 @@ def enrich_manifest(manifest: list[dict]) -> list[dict]:
                     f"{entry['name']!r} description is {len(description)} chars, "
                     f"over the {MAX_DESCRIPTION_LENGTH} char limit"
                 )
-            topics = sorted(set(entry.get("topics", [])) | set(info.get("topics", [])))
+            raw_topics = set(entry.get("topics", [])) | set(info.get("topics", []))
+            topics = sorted({canonicalize_topic(topic) for topic in raw_topics})
             icons = [entry["logo"]] if entry.get("logo") else resolve_logos(topics, client=client)
             merged = {
                 **entry,
@@ -131,6 +191,10 @@ def enrich_manifest(manifest: list[dict]) -> list[dict]:
                 "template_repository": info.get("template_repository"),
                 "topics": topics,
                 "website": entry.get("website") or info.get("homepage") or "",
+                "updated_at": info.get("pushed_at") or "",
+                "updated_display": _format_updated(info.get("pushed_at")),
+                "added_at": entry.get("added") or "",
+                "added_display": _format_added(entry.get("added")),
             }
             enriched.append(merged)
     return enriched
