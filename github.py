@@ -4,8 +4,11 @@ For each ``{owner, repo}`` pair in ``data/manifest.json`` this calls the
 GitHub REST API once to pull:
 
 - ``description``      -- used when the manifest entry doesn't set one
-- owner avatar          -- used as a logo fallback when the manifest entry
-                            doesn't set ``logo``
+- icons                 -- topic-matched icons (see ``icons.py``), shown as a
+                            row; a manifest ``logo`` override takes the place
+                            of topic matching entirely
+- avatar                -- the owner's GitHub avatar, shown as a thumbnail
+                            regardless of whether any topic icon matched
 - ``is_template``       -- the repo is itself usable as a GitHub template
 - ``template_repository`` -- the repo was generated from a template repo
 - ``topics``            -- the repo's GitHub topics, merged with any topics
@@ -30,6 +33,8 @@ import logging
 import os
 
 import httpx
+
+from icons import resolve_logos
 
 logger = logging.getLogger(__name__)
 
@@ -86,8 +91,11 @@ def enrich_manifest(manifest: list[dict]) -> list[dict]:
     """Merge GitHub API data onto each manifest entry.
 
     Manifest values always win over GitHub-sourced values, except that a
-    logo/description/website is only ever filled in when the manifest
-    omitted one, and topics are the union of both sources.
+    description/website is only ever filled in when the manifest omitted
+    one, and topics are the union of both sources. ``icons`` is the row of
+    topic-matched icons, unless the manifest sets a ``logo`` override, in
+    which case that's the only icon shown. ``avatar`` is always the owner's
+    GitHub avatar, independent of ``icons``.
 
     An entry may set ``branch`` when its example lives on a non-default
     branch (e.g. a repo that needed Aiven Runtime-specific changes that
@@ -109,18 +117,19 @@ def enrich_manifest(manifest: list[dict]) -> list[dict]:
                     f"{entry['name']!r} description is {len(description)} chars, "
                     f"over the {MAX_DESCRIPTION_LENGTH} char limit"
                 )
+            topics = sorted(set(entry.get("topics", [])) | set(info.get("topics", [])))
+            icons = [entry["logo"]] if entry.get("logo") else resolve_logos(topics, client=client)
             merged = {
                 **entry,
                 "repo_url": f"{base_url}/tree/{branch}" if branch else base_url,
                 "fork_url": f"{base_url}/fork?ref={branch}" if branch else f"{base_url}/fork",
                 "description": description,
-                "logo": entry.get("logo") or info.get("avatar_url") or "",
+                "icons": icons,
+                "avatar": info.get("avatar_url") or "",
                 "is_template": info.get("is_template", False),
                 "generate_url": info.get("generate_url"),
                 "template_repository": info.get("template_repository"),
-                "topics": sorted(
-                    set(entry.get("topics", [])) | set(info.get("topics", []))
-                ),
+                "topics": topics,
                 "website": entry.get("website") or info.get("homepage") or "",
             }
             enriched.append(merged)
