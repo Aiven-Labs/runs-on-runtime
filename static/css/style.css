@@ -705,3 +705,13 @@ main {
   margin-left: auto;
   font-weight: 500;
 }
+
+.site-footer .icon-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--aq-text-muted);
+}
+
+.site-footer .icon-link:hover {
+  color: var(--aq-text-primary);
+}
