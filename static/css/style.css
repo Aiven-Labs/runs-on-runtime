@@ -45,6 +45,9 @@
   --aq-grey-80: #1F2021;
   --aq-grey-90: #16171A;
 
+  /* Forced monochrome foreground for icon-only buttons, independent of text-muted */
+  --aq-icon-mono: #FFFFFF;
+
   /* Aquarium primary (teal) */
   --aq-primary-0: #F0FEFE;
   --aq-primary-30: #2ED0CD;
@@ -708,11 +711,21 @@ main {
   border-top: 1px solid var(--aq-border-muted);
 }
 
-.repo-actions .btn-ghost {
-  color: var(--aq-text-default);
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-pill);
 }
 
-.repo-actions .btn-ghost:hover {
+.btn-icon svg {
+  color: var(--aq-icon-mono);
+}
+
+.btn-icon:hover svg {
   color: var(--aq-text-primary);
 }
 
