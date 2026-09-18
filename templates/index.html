@@ -12,50 +12,106 @@
 </section>
 
 <div id="repo-list">
-  <div class="container">
-    <div class="toolbar">
-      <label class="search-field">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <circle cx="7" cy="7" r="5" stroke="#B5B5B7" stroke-width="1.5"></circle>
-          <path d="M11 11l3.5 3.5" stroke="#B5B5B7" stroke-width="1.5" stroke-linecap="round"></path>
-        </svg>
-        <input class="search" type="search" placeholder="Search repos, owners, topics" aria-label="Search repos">
-      </label>
-      <label class="filter-templates">
-        <input type="checkbox" id="templates-only">
-        <span class="switch" aria-hidden="true"></span>
-        Templates only
-      </label>
-      <div class="count-label" id="repo-count">{{ repos | length }} REPOS</div>
-    </div>
+  <div class="container repo-layout">
+    <aside class="filters-panel">
+      <h2 class="filters-panel-title">Filter by</h2>
 
-    <div class="empty-state" id="empty-state" hidden>
-      <div class="eyebrow">{ }</div>
-      <div class="title">No repos match</div>
-      <p>Try a different search term, or add your project to the directory.</p>
-      <div class="empty-state-actions">
-        <button type="button" class="btn btn-secondary" id="clear-filters">Clear filters</button>
-        <a class="btn btn-primary" href="/contribute.html">Add your project</a>
+      <div class="filters-group">
+        <label class="filter-checkbox">
+          <input type="checkbox" class="source-checkbox" value="aiven">
+          <span class="checkbox-box" aria-hidden="true"></span>
+          <span class="filter-checkbox-label">Aiven authored</span>
+        </label>
+        <label class="filter-checkbox">
+          <input type="checkbox" class="source-checkbox" value="community">
+          <span class="checkbox-box" aria-hidden="true"></span>
+          <span class="filter-checkbox-label">Community authored</span>
+        </label>
+        <label class="filter-checkbox">
+          <input type="checkbox" id="templates-only">
+          <span class="checkbox-box" aria-hidden="true"></span>
+          <span class="filter-checkbox-label">Templates only</span>
+        </label>
       </div>
-    </div>
 
-    <div class="repo-grid list">
-      {% for repo in repos %}
-      <article class="repo-card" data-is-template="{{ repo.is_template | lower }}" data-topics="{{ repo.topics | join(' ') }}">
+      <details class="filters-section" open>
+        <summary>
+          Topics
+          <span class="filters-section-count" id="topics-filter-count" hidden></span>
+        </summary>
+        <div class="filters-section-body">
+          {% for topic in topics %}
+          <label class="filter-checkbox filter-checkbox-sm">
+            <input type="checkbox" value="{{ topic.name }}" class="topic-checkbox">
+            <span class="checkbox-box" aria-hidden="true"></span>
+            <span class="filter-checkbox-label">{{ topic.name }}</span>
+            <span class="filter-checkbox-num">{{ topic.count }}</span>
+          </label>
+          {% endfor %}
+        </div>
+      </details>
+    </aside>
+
+    <div class="results">
+      <div class="toolbar">
+        <label class="search-field">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <circle cx="7" cy="7" r="5" stroke="#B5B5B7" stroke-width="1.5"></circle>
+            <path d="M11 11l3.5 3.5" stroke="#B5B5B7" stroke-width="1.5" stroke-linecap="round"></path>
+          </svg>
+          <input class="search" type="search" placeholder="Search repos, owners, topics" aria-label="Search repos">
+        </label>
+
+        <label class="sort-field">
+          Sort
+          <select id="sort-select">
+            <option value="name" selected>Name (A-Z)</option>
+            <option value="updated">Recently updated</option>
+            <option value="added">Recently added</option>
+          </select>
+        </label>
+
+        <div class="count-label" id="repo-count">{{ repos | length }} REPOS</div>
+      </div>
+
+      <div class="empty-state" id="empty-state" hidden>
+        <div class="eyebrow">{ }</div>
+        <div class="title">No repos match</div>
+        <p>Try a different search term, or add your project to the directory.</p>
+        <div class="empty-state-actions">
+          <button type="button" class="btn btn-secondary" id="clear-filters">Clear filters</button>
+          <a class="btn btn-primary" href="/contribute.html">Add your project</a>
+        </div>
+      </div>
+
+      <div class="repo-grid list">
+        {% for repo in repos %}
+      <article class="repo-card" data-is-template="{{ repo.is_template | lower }}" data-topics="{{ repo.topics | join(' ') }}" data-updated="{{ repo.updated_at }}" data-added="{{ repo.added_at }}" data-source="{{ repo.source }}">
         <div class="repo-card-head">
-          {% if repo.icons %}
-          <div class="repo-icons">
-            {% for icon in repo.icons %}
-            <img class="repo-icon" src="{{ icon }}" alt="" loading="lazy">
-            {% endfor %}
+          {% if repo.icons or repo.is_template %}
+          <div class="repo-icons-row">
+            {% if repo.icons %}
+            <div class="repo-icons">
+              {% for icon in repo.icons %}
+              <img class="repo-icon" src="{{ icon }}" alt="" loading="lazy">
+              {% endfor %}
+            </div>
+            {% endif %}
+            {% if repo.is_template %}
+            <span class="badge-template">Template</span>
+            {% endif %}
           </div>
           {% endif %}
           <div class="repo-meta">
             <h2><a class="name" href="{{ repo.repo_url }}">{{ repo.name }}</a></h2>
+            <div class="repo-slug">{{ repo.owner }}/{{ repo.repo }}</div>
+            {% if repo.updated_display %}
+            <div class="repo-updated">Updated {{ repo.updated_display }}</div>
+            {% endif %}
+            {% if repo.added_display %}
+            <div class="repo-added">Added {{ repo.added_display }}</div>
+            {% endif %}
           </div>
-          {% if repo.is_template %}
-          <span class="badge-template">Template</span>
-          {% endif %}
         </div>
 
         {% if repo.description %}
@@ -99,6 +155,7 @@
         {% endif %}
       </article>
       {% endfor %}
+      </div>
     </div>
   </div>
 </div>
@@ -106,7 +163,7 @@
 <script src="/static/js/list.min.js"></script>
 <script>
   var repoList = new List("repo-list", {
-    valueNames: ["name", "description", { data: ["topics"] }],
+    valueNames: ["name", "description", { data: ["topics", "updated", "added"] }],
     listClass: "list",
   });
 
@@ -115,30 +172,92 @@
   var countLabel = document.getElementById("repo-count");
   var templatesOnly = document.getElementById("templates-only");
   var searchInput = document.querySelector(".search");
-  var activeTopic = null;
+  var sortSelect = document.getElementById("sort-select");
+  var sourceCheckboxes = Array.prototype.slice.call(document.querySelectorAll(".source-checkbox"));
+  var topicCheckboxes = Array.prototype.slice.call(document.querySelectorAll(".topic-checkbox"));
+  var topicsFilterCount = document.getElementById("topics-filter-count");
+  var activeTopics = new Set();
+
+  function hasActiveTopic(itemTopics) {
+    if (activeTopics.size === 0) return true;
+    var repoTopics = (" " + itemTopics + " ");
+    var matched = false;
+    activeTopics.forEach(function (topic) {
+      if (repoTopics.indexOf(" " + topic + " ") !== -1) matched = true;
+    });
+    return matched;
+  }
+
+  function syncTopicUI() {
+    topicCheckboxes.forEach(function (checkbox) {
+      checkbox.checked = activeTopics.has(checkbox.value);
+    });
+    document.querySelectorAll(".repo-topics li").forEach(function (el) {
+      el.classList.toggle("active", activeTopics.has(el.textContent.trim()));
+    });
+    topicsFilterCount.hidden = activeTopics.size === 0;
+    topicsFilterCount.textContent = activeTopics.size;
+  }
+
+  function activeSources() {
+    return sourceCheckboxes.filter(function (checkbox) { return checkbox.checked; })
+      .map(function (checkbox) { return checkbox.value; });
+  }
 
   function applyFilters() {
+    var sources = activeSources();
     repoList.filter(function (item) {
       if (templatesOnly.checked && item.elm.dataset.isTemplate !== "true") {
         return false;
       }
-      if (activeTopic && (" " + item.elm.dataset.topics + " ").indexOf(" " + activeTopic + " ") === -1) {
+      if (sources.length > 0 && sources.indexOf(item.elm.dataset.source) === -1) {
+        return false;
+      }
+      if (!hasActiveTopic(item.elm.dataset.topics)) {
         return false;
       }
       return true;
     });
   }
 
+  function applySort() {
+    if (sortSelect.value === "updated") {
+      repoList.sort("updated", { order: "desc" });
+    } else if (sortSelect.value === "added") {
+      repoList.sort("added", { order: "desc" });
+    } else {
+      repoList.sort("name", { order: "asc" });
+    }
+  }
+
   templatesOnly.addEventListener("change", applyFilters);
+  sortSelect.addEventListener("change", applySort);
+  sourceCheckboxes.forEach(function (checkbox) {
+    checkbox.addEventListener("change", applyFilters);
+  });
+
+  topicCheckboxes.forEach(function (checkbox) {
+    checkbox.addEventListener("change", function () {
+      if (checkbox.checked) {
+        activeTopics.add(checkbox.value);
+      } else {
+        activeTopics.delete(checkbox.value);
+      }
+      syncTopicUI();
+      applyFilters();
+    });
+  });
 
   document.querySelector(".repo-grid").addEventListener("click", function (event) {
     var topicEl = event.target.closest(".repo-topics li");
     if (!topicEl) return;
     var topic = topicEl.textContent.trim();
-    activeTopic = activeTopic === topic ? null : topic;
-    document.querySelectorAll(".repo-topics li").forEach(function (el) {
-      el.classList.toggle("active", el.textContent.trim() === activeTopic);
-    });
+    if (activeTopics.has(topic)) {
+      activeTopics.delete(topic);
+    } else {
+      activeTopics.add(topic);
+    }
+    syncTopicUI();
     applyFilters();
   });
 
@@ -146,10 +265,11 @@
     searchInput.value = "";
     repoList.search();
     templatesOnly.checked = false;
-    activeTopic = null;
-    document.querySelectorAll(".repo-topics li.active").forEach(function (el) {
-      el.classList.remove("active");
+    sourceCheckboxes.forEach(function (checkbox) {
+      checkbox.checked = false;
     });
+    activeTopics.clear();
+    syncTopicUI();
     applyFilters();
   });
 
