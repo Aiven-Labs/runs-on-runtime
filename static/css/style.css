@@ -1,9 +1,11 @@
 /*
-  Aiven Aquarium design tokens (dark theme) — from the Claude Design
-  redesign for issue #18 ("Runs on Runtime v2"). Token names and values
-  are taken directly from Aiven's design-system export (colors_and_type.css)
+  Aiven Aquarium design tokens — from the Claude Design redesign for
+  issue #18 ("Runs on Runtime v2"). Token names and values are taken
+  directly from Aiven's design-system export (colors_and_type.css)
   rather than approximated, so hex/px values here are load-bearing — don't
-  hand-tune them without checking that source.
+  hand-tune them without checking that source. Dark is the default
+  surface; the @media (prefers-color-scheme: light) block below remaps
+  the same semantic tokens onto the light end of the grey/teal scales.
 */
 
 @font-face {
@@ -29,12 +31,13 @@
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: dark light;
 
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
   /* Aquarium greys */
+  --aq-grey-0: #FFFFFF;
   --aq-grey-5: #F4F4F4;
   --aq-grey-10: #EBEBEB;
   --aq-grey-20: #E1E1E1;
@@ -45,7 +48,7 @@
   --aq-grey-80: #1F2021;
   --aq-grey-90: #16171A;
 
-  /* Forced monochrome foreground for icon-only buttons, independent of text-muted */
+  /* Monochrome icon foreground — flips with system color scheme */
   --aq-icon-mono: #FFFFFF;
 
   /* Aquarium primary (teal) */
@@ -54,6 +57,7 @@
   --aq-primary-40: #1BB2B0;
   --aq-primary-50: #009693;
   --aq-primary-60: #00807C;
+  --aq-primary-70: #00615F;
   --aq-primary-90: #003130;
   --aq-primary-100: #001A19;
 
@@ -76,6 +80,7 @@
   --aq-text-default: var(--aq-grey-10);
   --aq-text-opposite: var(--aq-grey-90);
   --aq-text-primary: var(--aq-primary-30);
+  --aq-link-hover: var(--aq-primary-40);
 
   /* Buttons (dark theme) */
   --aq-btn-primary-default: var(--aq-grey-5);
@@ -114,6 +119,40 @@
   --shadow-overlay: 0 4px 16px rgba(0, 0, 0, 0.25), 0 14px 32px rgba(0, 0, 0, 0.2);
 }
 
+@media (prefers-color-scheme: light) {
+  :root {
+    --aq-icon-mono: #000000;
+
+    /* Semantic surfaces — light theme */
+    --aq-bg-body: var(--aq-grey-5);
+    --aq-bg-layer: var(--aq-grey-0);
+    --aq-bg-medium: var(--aq-grey-10);
+    --aq-bg-intense: var(--aq-grey-20);
+    --aq-bg-primary-default: var(--aq-primary-0);
+    --aq-bg-backdrop: rgb(255 255 255 / 70%);
+
+    --aq-border-muted: var(--aq-grey-20);
+    --aq-border-default: var(--aq-grey-30);
+    --aq-border-intense: var(--aq-grey-60);
+
+    --aq-text-muted: var(--aq-grey-60);
+    --aq-text-default: var(--aq-grey-90);
+    --aq-text-opposite: var(--aq-grey-5);
+    --aq-text-primary: var(--aq-primary-60);
+    --aq-link-hover: var(--aq-primary-50);
+
+    /* Buttons (light theme) */
+    --aq-btn-primary-default: var(--aq-grey-90);
+    --aq-btn-primary-hover: var(--aq-grey-70);
+    --aq-btn-primary-active: var(--aq-grey-60);
+    --aq-btn-secondary-border: var(--aq-primary-60);
+    --aq-btn-secondary-border-hover: var(--aq-primary-70);
+    --aq-btn-secondary-border-active: var(--aq-primary-90);
+
+    --shadow-overlay: 0 4px 16px rgba(22, 23, 26, 0.1), 0 14px 32px rgba(22, 23, 26, 0.08);
+  }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -134,7 +173,7 @@ a {
 }
 
 a:hover {
-  color: var(--aq-primary-40);
+  color: var(--aq-link-hover);
 }
 
 input::placeholder {
@@ -144,7 +183,7 @@ input::placeholder {
 input:focus,
 button:focus-visible,
 a:focus-visible {
-  outline: 2px solid var(--aq-primary-30);
+  outline: 2px solid var(--aq-border-focus);
   outline-offset: 2px;
 }
 
@@ -186,7 +225,7 @@ a:focus-visible {
 
 .btn-secondary:hover {
   border-color: var(--aq-btn-secondary-border-hover);
-  color: var(--aq-primary-40);
+  color: var(--aq-link-hover);
 }
 
 .btn-ghost {
@@ -232,6 +271,12 @@ a:focus-visible {
 .site-title img {
   height: 28px;
   display: block;
+}
+
+@media (prefers-color-scheme: light) {
+  .brand-logo {
+    filter: invert(1);
+  }
 }
 
 .site-title .sep {
@@ -691,7 +736,7 @@ main {
 }
 
 .repo-topics li.active {
-  border-color: var(--aq-primary-30);
+  border-color: var(--aq-btn-secondary-border);
   color: var(--aq-text-primary);
 }
 
