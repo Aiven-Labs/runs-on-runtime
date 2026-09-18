@@ -45,8 +45,17 @@ def topic_counts(repos: list[dict]) -> list[dict]:
     """Distinct topics across all repos, with how many repos use each one --
     used to render the topics filter. Aiven-service topics (those with an
     official Aiven icon, see ``icons.AIVEN_SERVICE_ICONS``) are grouped
-    first, everything else after; both groups are alphabetical."""
-    counts = Counter(topic for repo in repos for topic in repo.get("topics", []))
+    first, everything else after; both groups are alphabetical.
+
+    Topics containing "aiven" (e.g. ``aiven-runtime``, ``aiven-labs``) are
+    self-applied by every repo in this directory rather than describing what
+    the repo does, so they're excluded to keep the filter from being gamed."""
+    counts = Counter(
+        topic
+        for repo in repos
+        for topic in repo.get("topics", [])
+        if "aiven" not in topic.lower()
+    )
     return [
         {"name": name, "count": count}
         for name, count in sorted(
