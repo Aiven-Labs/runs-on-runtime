@@ -8,6 +8,7 @@ Every test stubs ``httpx.Client.get`` so nothing hits the real network.
 import httpx
 
 import github
+import icons
 
 
 def _stub_get(monkeypatch, payload: dict, status_code: int = 200):
@@ -52,9 +53,10 @@ def test_branch_field_changes_repo_and_fork_urls(monkeypatch):
     )
 
 
-def test_branch_field_does_not_affect_github_lookup(monkeypatch):
+def test_branch_field_does_not_affect_github_lookup(monkeypatch, tmp_path):
     """The GitHub API is queried for the repo as a whole, not a specific
     ref -- description/topics/template status are branch-independent."""
+    monkeypatch.setattr(icons, "DEVICON_CACHE_DIR", tmp_path / "devicon")
     seen_urls = _stub_get(
         monkeypatch,
         {
@@ -74,10 +76,15 @@ def test_branch_field_does_not_affect_github_lookup(monkeypatch):
 
     enriched = github.enrich_manifest([entry])[0]
 
-    assert seen_urls == ["https://api.github.com/repos/octocat/hello-world"]
+    assert seen_urls == [
+        "https://api.github.com/repos/octocat/hello-world",
+        icons._devicon_url("python"),
+    ]
     assert enriched["description"] == "from github"
     assert enriched["topics"] == ["python"]
     assert enriched["generate_url"] == "https://github.com/octocat/hello-world/generate"
+    assert enriched["icons"] == ["/static/images/devicon/python.svg"]
+    assert enriched["avatar"] == "https://example.com/avatar.png"
 
 
 def test_manifest_values_win_over_github_data_regardless_of_branch(monkeypatch):

@@ -427,12 +427,17 @@ main {
   gap: var(--sp-4);
 }
 
-.repo-logo {
+.repo-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  flex: none;
+}
+
+.repo-icon {
   width: 40px;
   height: 40px;
-  border-radius: var(--r-default);
-  background: var(--aq-bg-medium);
-  object-fit: cover;
+  object-fit: contain;
   flex: none;
 }
 
@@ -457,14 +462,29 @@ main {
   color: var(--aq-text-default);
 }
 
+.repo-footer {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-width: 0;
+}
+
+.repo-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--r-pill);
+  object-fit: cover;
+  flex: none;
+}
+
 .repo-slug {
   font-family: var(--font-mono);
   font-size: 12px;
   color: var(--aq-text-muted);
-  margin-top: 2px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  min-width: 0;
 }
 
 .badge-template {

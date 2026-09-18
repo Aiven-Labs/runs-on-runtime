@@ -9,3 +9,11 @@ run = "uv run render-engine build app:app"
 [tasks.test]
 description = "Run the test suite with pytest"
 run = "uv run pytest"
+
+[tasks.docker-build]
+description = "Build the runtime image, passing GITHUB_TOKEN (via fnox) as a build secret so the manifest enrichment isn't rate-limited"
+run = "fnox exec -- docker build --secret id=github_token,env=GITHUB_TOKEN -t runtime ."
+
+[tasks.docker-run]
+description = "Run the runtime image locally on :8001"
+run = "docker run --rm -p 8001:80 runtime"

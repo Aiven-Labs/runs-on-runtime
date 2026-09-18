@@ -43,12 +43,15 @@
       {% for repo in repos %}
       <article class="repo-card" data-is-template="{{ repo.is_template | lower }}" data-topics="{{ repo.topics | join(' ') }}">
         <div class="repo-card-head">
-          {% if repo.logo %}
-          <img class="repo-logo" src="{{ repo.logo }}" alt="" loading="lazy">
+          {% if repo.icons %}
+          <div class="repo-icons">
+            {% for icon in repo.icons %}
+            <img class="repo-icon" src="{{ icon }}" alt="" loading="lazy">
+            {% endfor %}
+          </div>
           {% endif %}
           <div class="repo-meta">
             <h2><a class="name" href="{{ repo.repo_url }}">{{ repo.name }}</a></h2>
-            <div class="repo-slug">{{ repo.owner }}/{{ repo.repo }}</div>
           </div>
           {% if repo.is_template %}
           <span class="badge-template">Template</span>
@@ -68,6 +71,13 @@
           {% endfor %}
         </ul>
         {% endif %}
+
+        <div class="repo-footer">
+          {% if repo.avatar %}
+          <img class="repo-avatar" src="{{ repo.avatar }}" alt="" loading="lazy">
+          {% endif %}
+          <div class="repo-slug">{{ repo.owner }}/{{ repo.repo }}</div>
+        </div>
 
         <div class="repo-actions">
           {% if repo.website %}
