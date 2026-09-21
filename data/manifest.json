@@ -90,48 +90,55 @@
     "owner": "Aiven-Labs",
     "repo": "aiven-runtime-temporal",
     "added": "2026-09-21",
-    "description": "Self-hosted Temporal Server, Web UI and an example worker, backed by Aiven PostgreSQL. A single-replica demo starter for durable workflows."
+    "description": "Self-hosted Temporal Server, Web UI and an example worker, backed by Aiven PostgreSQL. A single-replica demo starter for durable workflows.",
+    "topics": ["temporal", "postgresql", "workflow-orchestration"]
   },
   {
     "name": "Streamlit",
     "owner": "Aiven-Labs",
     "repo": "aiven-runtime-streamlit",
     "added": "2026-09-21",
-    "description": "A generic Streamlit app with sample charts, filters, a searchable table and CSV export. Includes optional Aiven PostgreSQL connectivity to build on with your own data."
+    "description": "A generic Streamlit app with sample charts, filters, a searchable table and CSV export. Includes optional Aiven PostgreSQL connectivity to build on with your own data.",
+    "topics": ["streamlit", "python", "dashboards", "postgresql"]
   },
   {
     "name": "Metabase",
     "owner": "Aiven-Labs",
     "repo": "aiven-runtime-metabase",
     "added": "2026-09-21",
-    "description": "Self-hosted Metabase Open Source with Aiven PostgreSQL for persistent application data. Explore the built-in Sample Database or connect your own data sources to build dashboards."
+    "description": "Self-hosted Metabase Open Source with Aiven PostgreSQL for persistent application data. Explore the built-in Sample Database or connect your own data sources to build dashboards.",
+    "topics": ["metabase", "postgresql", "analytics", "dashboards"]
   },
   {
     "name": "LiteLLM",
     "owner": "Aiven-Labs",
     "repo": "aiven-runtime-litellm",
     "added": "2026-09-21",
-    "description": "An AI gateway and admin UI backed by Aiven PostgreSQL and Valkey. Bring your own model-provider credentials to serve an OpenAI-compatible API with virtual keys, budgets and usage tracking."
+    "description": "An AI gateway and admin UI backed by Aiven PostgreSQL and Valkey. Bring your own model-provider credentials to serve an OpenAI-compatible API with virtual keys, budgets and usage tracking.",
+    "topics": ["litellm", "postgresql", "valkey", "llm", "ai-gateway"]
   },
   {
     "name": "LangGraph application starter",
     "owner": "Aiven-Labs",
     "repo": "aiven-runtime-langgraph",
     "added": "2026-09-21",
-    "description": "A Python/FastAPI app using the open-source LangGraph library, with a draft-and-review workflow, browser UI and authenticated API. Aiven PostgreSQL saves workflow state; demo mode needs no model-provider key."
+    "description": "A Python/FastAPI app using the open-source LangGraph library, with a draft-and-review workflow, browser UI and authenticated API. Aiven PostgreSQL saves workflow state; demo mode needs no model-provider key.",
+    "topics": ["langgraph", "python", "fastapi", "postgresql", "workflow-orchestration"]
   },
   {
     "name": "Hasura",
     "owner": "Aiven-Labs",
     "repo": "aiven-runtime-hasura",
     "added": "2026-09-21",
-    "description": "Hasura GraphQL Engine Community Edition v2 and its native Console, backed by Aiven PostgreSQL. Expose tables through GraphQL queries, mutations and subscriptions."
+    "description": "Hasura GraphQL Engine Community Edition v2 and its native Console, backed by Aiven PostgreSQL. Expose tables through GraphQL queries, mutations and subscriptions.",
+    "topics": ["hasura", "graphql", "postgresql"]
   },
   {
     "name": "Langfuse",
     "owner": "Aiven-Labs",
     "repo": "aiven-runtime-langfuse",
     "added": "2026-09-21",
-    "description": "LLM observability with the Langfuse web UI and worker, Aiven PostgreSQL, ClickHouse and Valkey, plus an external S3-compatible bucket. A demo starter for fresh Langfuse v4 installations; tested with Cloudflare R2."
+    "description": "LLM observability with the Langfuse web UI and worker, Aiven PostgreSQL, ClickHouse and Valkey, plus an external S3-compatible bucket. A demo starter for fresh Langfuse v4 installations; tested with Cloudflare R2.",
+    "topics": ["langfuse", "llm", "observability", "postgresql", "clickhouse", "valkey", "s3"]
   }
 ]
