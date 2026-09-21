@@ -147,6 +147,15 @@
     "topics": ["postgresql", "kafka"]
   },
   {
+    "name": "BetterDB Monitor",
+    "owner": "BetterDB-inc",
+    "repo": "monitor",
+    "branch": "aiven-runtime",
+    "added": "2026-09-21",
+    "description": "A monitoring and observability layer for Valkey and Redis that persists slowlogs, command patterns, client activity and anomaly signals so you can debug what happened, not just what's happening now. Native Valkey 8.x support (COMMANDLOG, CLUSTER SLOT-STATS, per-thread I/O); Redis 6+ compatible.",
+    "topics": ["valkey", "redis", "monitoring", "observability"]
+  },
+  {
     "name": "Runs on Runtime",
     "owner": "aiven-labs",
     "repo": "runs-on-runtime",
