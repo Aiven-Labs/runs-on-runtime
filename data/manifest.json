@@ -84,5 +84,54 @@
     "repo": "preparing-data-for-opensearch-and-rag",
     "added": "2026-09-18",
     "description": "A FastAPI service that chunks, embeds, and indexes uploaded text/PDF documents into Aiven for OpenSearch for RAG, with local dev support via OpenSearch and RustFS (S3-compatible storage) in docker-compose."
+  },
+  {
+    "name": "Temporal",
+    "owner": "Aiven-Labs",
+    "repo": "aiven-runtime-temporal",
+    "added": "2026-09-21",
+    "description": "Self-hosted Temporal Server, Web UI and an example worker, backed by Aiven PostgreSQL. A single-replica demo starter for durable workflows."
+  },
+  {
+    "name": "Streamlit",
+    "owner": "Aiven-Labs",
+    "repo": "aiven-runtime-streamlit",
+    "added": "2026-09-21",
+    "description": "A generic Streamlit app with sample charts, filters, a searchable table and CSV export. Includes optional Aiven PostgreSQL connectivity to build on with your own data."
+  },
+  {
+    "name": "Metabase",
+    "owner": "Aiven-Labs",
+    "repo": "aiven-runtime-metabase",
+    "added": "2026-09-21",
+    "description": "Self-hosted Metabase Open Source with Aiven PostgreSQL for persistent application data. Explore the built-in Sample Database or connect your own data sources to build dashboards."
+  },
+  {
+    "name": "LiteLLM",
+    "owner": "Aiven-Labs",
+    "repo": "aiven-runtime-litellm",
+    "added": "2026-09-21",
+    "description": "An AI gateway and admin UI backed by Aiven PostgreSQL and Valkey. Bring your own model-provider credentials to serve an OpenAI-compatible API with virtual keys, budgets and usage tracking."
+  },
+  {
+    "name": "LangGraph application starter",
+    "owner": "Aiven-Labs",
+    "repo": "aiven-runtime-langgraph",
+    "added": "2026-09-21",
+    "description": "A Python/FastAPI app using the open-source LangGraph library, with a draft-and-review workflow, browser UI and authenticated API. Aiven PostgreSQL saves workflow state; demo mode needs no model-provider key."
+  },
+  {
+    "name": "Hasura",
+    "owner": "Aiven-Labs",
+    "repo": "aiven-runtime-hasura",
+    "added": "2026-09-21",
+    "description": "Hasura GraphQL Engine Community Edition v2 and its native Console, backed by Aiven PostgreSQL. Expose tables through GraphQL queries, mutations and subscriptions."
+  },
+  {
+    "name": "Langfuse",
+    "owner": "Aiven-Labs",
+    "repo": "aiven-runtime-langfuse",
+    "added": "2026-09-21",
+    "description": "LLM observability with the Langfuse web UI and worker, Aiven PostgreSQL, ClickHouse and Valkey, plus an external S3-compatible bucket. A demo starter for fresh Langfuse v4 installations; tested with Cloudflare R2."
   }
 ]
