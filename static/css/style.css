@@ -255,8 +255,9 @@ a:focus-visible {
 .site-header .inner {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 var(--sp-6);
-  height: 56px;
+  padding: var(--sp-3) var(--sp-6);
+  min-height: 56px;
+  flex-wrap: wrap;
   display: flex;
   align-items: center;
   gap: var(--sp-6);
@@ -279,23 +280,30 @@ a:focus-visible {
   display: block;
 }
 
-.site-title .sep {
-  width: 1px;
-  height: 20px;
-  background: var(--aq-border-default);
-}
-
-.site-title .wordmark {
-  font-weight: 600;
-  font-size: 14px;
-  color: var(--aq-text-default);
-}
-
 .site-header nav {
   margin-left: auto;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   align-items: center;
   gap: var(--sp-3);
+}
+
+@media (max-width: 480px) {
+  .site-header .inner {
+    padding-inline: var(--sp-4);
+    gap: var(--sp-3);
+  }
+
+  .site-header nav {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .site-header nav .btn {
+    padding: var(--sp-3) var(--sp-4);
+    font-size: 13px;
+  }
 }
 
 /* Layout */
@@ -316,7 +324,7 @@ main {
 }
 
 .page-hero .container {
-  padding: var(--sp-9) var(--sp-6) var(--sp-7);
+  padding: var(--sp-5) var(--sp-6);
   display: grid;
   gap: var(--sp-4);
 }
@@ -348,12 +356,6 @@ main {
   max-width: 60ch;
 }
 
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--sp-4);
-  margin-top: var(--sp-2);
-}
 
 /* Sidebar + results layout */
 .repo-layout {
