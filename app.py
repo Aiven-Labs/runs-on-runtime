@@ -15,10 +15,7 @@ from render_engine import Collection, Page, Site
 from render_engine_markdown import MarkdownPageParser
 
 from github import canonicalize_topic, enrich_manifest
-from icons import AIVEN_SERVICE_ICONS
 from schema import validate_manifest
-
-AIVEN_SERVICE_TOPICS = {canonicalize_topic(topic) for topic in AIVEN_SERVICE_ICONS}
 
 MANIFEST_PATH = Path("data/manifest.json")
 
@@ -43,9 +40,8 @@ def mark_source(repos: list[dict]) -> list[dict]:
 
 def topic_counts(repos: list[dict]) -> list[dict]:
     """Distinct topics across all repos, with how many repos use each one --
-    used to render the topics filter. Aiven-service topics (those with an
-    official Aiven icon, see ``icons.AIVEN_SERVICE_ICONS``) are grouped
-    first, everything else after; both groups are alphabetical.
+    used to render the topics filter. Sort by repository count descending,
+    with alphabetical ordering for topics with the same count.
 
     Topics containing "aiven" (e.g. ``aiven-runtime``, ``aiven-labs``) are
     self-applied by every repo in this directory rather than describing what
@@ -53,13 +49,13 @@ def topic_counts(repos: list[dict]) -> list[dict]:
     counts = Counter(
         topic
         for repo in repos
-        for topic in repo.get("topics", [])
+        for topic in set(repo.get("topics", []))
         if "aiven" not in topic.lower()
     )
     return [
         {"name": name, "count": count}
         for name, count in sorted(
-            counts.items(), key=lambda item: (item[0] not in AIVEN_SERVICE_TOPICS, item[0])
+            counts.items(), key=lambda item: (-item[1], item[0])
         )
     ]
 

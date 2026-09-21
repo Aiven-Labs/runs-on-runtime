@@ -752,11 +752,6 @@ main {
   color: var(--aq-text-primary);
 }
 
-.repo-template-source {
-  margin: calc(var(--sp-5) * -1) 0 0;
-  font-size: 12px;
-  color: var(--aq-text-inactive);
-}
 
 .repo-actions {
   display: flex;
