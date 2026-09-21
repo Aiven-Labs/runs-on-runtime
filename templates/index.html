@@ -126,6 +126,11 @@
         </div>
 
         <div class="repo-actions">
+          {% if repo.license_name %}
+          <a class="repo-license" href="{{ repo.license_url }}" title="{{ repo.license_name }}" aria-label="Repository license: {{ repo.license_name }}">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M7 3h10v18l-5-3-5 3V3Z"/><path d="m9 9 2 2 4-4"/></svg>
+          </a>
+          {% endif %}
           {% if repo.is_template %}
           <a class="btn btn-secondary" href="{{ repo.generate_url }}">Use this template</a>
           {% else %}

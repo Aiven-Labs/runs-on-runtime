@@ -104,9 +104,14 @@ def fetch_repo_info(owner: str, repo: str, *, client: httpx.Client) -> dict:
 
     data = response.json()
     template_repository = data.get("template_repository")
+    license_info = data.get("license") or {}
+    license_name = license_info.get("name")
+    if license_info.get("spdx_id") == "NOASSERTION":
+        license_name = "License present (type not identified)"
 
     return {
         "github_description": data.get("description"),
+        "license_name": license_name,
         "avatar_url": data.get("owner", {}).get("avatar_url"),
         "is_template": data.get("is_template", False),
         "generate_url": (
@@ -185,6 +190,8 @@ def enrich_manifest(manifest: list[dict]) -> list[dict]:
                 "fork_url": f"{base_url}/fork?ref={branch}" if branch else f"{base_url}/fork",
                 "description": description,
                 "icons": icons,
+                "license_name": info.get("license_name") or "",
+                "license_url": f"{base_url}#license",
                 "avatar": info.get("avatar_url") or "",
                 "is_template": info.get("is_template", False),
                 "generate_url": info.get("generate_url"),
