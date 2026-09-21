@@ -1,11 +1,5 @@
 [
   {
-    "name": "Valkey-Admin",
-    "owner": "Aiven-Labs",
-    "repo": "valkey-admin-aiven-apps"
-    "added": "2026-09-17",
-  },
-  {
     "name": "n8n",
     "owner": "Aiven-Labs",
     "repo": "aiven-runtime-n8n",
@@ -172,5 +166,11 @@
     "repo": "runs-on-runtime",
     "added": "2026-09-09",
     "description": "This directory site itself — a static site running python/nginx listing repos that run on Aiven Runtime."
+  },
+  {
+    "name": "Valkey-Admin",
+    "owner": "Aiven-Labs",
+    "repo": "valkey-admin-aiven-apps",
+    "added": "2026-09-17"
   }
 ]
