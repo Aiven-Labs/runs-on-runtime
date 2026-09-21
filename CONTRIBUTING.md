@@ -23,6 +23,10 @@ git commit -am "Add my-project to the directory"
 git push origin add-my-project
 ```
 
+The manifest order controls the default **Recommended** order on the site. Preserve
+existing entries' relative order when adding a repo; propose curated reordering in
+a separate change. Visitors can also sort by name or date.
+
 ## 2. The schema
 
 ```json
