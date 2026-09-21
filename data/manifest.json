@@ -152,5 +152,11 @@
     "repo": "runs-on-runtime",
     "added": "2026-09-09",
     "description": "This directory site itself — a static site running python/nginx listing repos that run on Aiven Runtime."
+  },
+  {
+    "name": "Valkey Admin",
+    "owner": "aiven-labs",
+    "repo": "valkey-admin-aiven-apps",
+    "added": "2026-09-21"
   }
 ]
