@@ -9,6 +9,11 @@ Adding your repo means adding one entry to that JSON array and opening a PR.
 
 ### 1. Edit the manifest
 
+Append your new template as the **last entry** in the `data/manifest.json` array,
+just before the closing `]`. Add a comma after the previous entry and leave the
+existing entries in their current order. This places your template at the bottom
+of the site's default **Recommended** list. Propose any reordering separately.
+
 The fastest way is to use GitHub's web editor, which will fork the repo and
 open a PR for you automatically:
 

@@ -138,12 +138,6 @@
           {% endif %}
         </div>
 
-        {% if repo.template_repository %}
-        <p class="repo-template-source">
-          Built from
-          <a href="{{ repo.template_repository.html_url }}">{{ repo.template_repository.full_name }}</a>
-        </p>
-        {% endif %}
       </article>
       {% endfor %}
       </div>
