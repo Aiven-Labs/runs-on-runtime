@@ -89,7 +89,7 @@
         {% for repo in repos %}
       <article class="repo-card" data-rank="{{ loop.index0 }}" data-is-template="{{ repo.is_template | lower }}" data-topics="{{ repo.topics | join(' ') }}" data-updated="{{ repo.updated_at }}" data-added="{{ repo.added_at }}" data-source="{{ repo.source }}">
         <div class="repo-card-head">
-          {% if repo.icons or repo.is_template %}
+          {% if repo.icons or repo.is_template or repo.license_name %}
           <div class="repo-icons-row">
             {% if repo.icons %}
             <div class="repo-icons">
@@ -97,6 +97,11 @@
               <img class="repo-icon" src="{{ icon }}" alt="" loading="lazy">
               {% endfor %}
             </div>
+            {% endif %}
+            {% if repo.license_name %}
+            <a class="repo-license" href="{{ repo.license_url }}" title="{{ repo.license_name }}" aria-label="Repository license: {{ repo.license_name }}">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M7 3h10v18l-5-3-5 3V3Z"/><path d="m9 9 2 2 4-4"/></svg>
+            </a>
             {% endif %}
             {% if repo.is_template %}
             <span class="badge-template">Template</span>

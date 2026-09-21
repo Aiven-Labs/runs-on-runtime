@@ -646,6 +646,24 @@ main {
   flex: none;
 }
 
+/* Repository license: tooltip for pointer users, named link for assistive tech. */
+.repo-license {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  color: var(--aq-text-muted);
+  border-radius: var(--r-default);
+}
+
+.repo-license:hover,
+.repo-license:focus-visible {
+  color: var(--aq-text-primary);
+  background: var(--aq-bg-layer);
+}
+
 .repo-card-head .repo-meta {
   min-width: 0;
   flex: 1;
