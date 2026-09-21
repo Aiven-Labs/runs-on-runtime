@@ -118,12 +118,12 @@
         </ul>
         {% endif %}
 
-        <div class="repo-footer">
+        <a class="repo-footer" href="{{ repo.repo_url }}" aria-label="View {{ repo.owner }}/{{ repo.repo }} on GitHub">
           {% if repo.avatar %}
           <img class="repo-avatar" src="{{ repo.avatar }}" alt="" loading="lazy">
           {% endif %}
-          <div class="repo-slug">{{ repo.owner }}/{{ repo.repo }}</div>
-        </div>
+          <span class="repo-slug">{{ repo.owner }}/{{ repo.repo }}</span>
+        </a>
 
         <div class="repo-actions">
           {% if repo.license_name %}

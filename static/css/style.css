@@ -686,6 +686,18 @@ main {
   min-width: 0;
 }
 
+.repo-footer:hover .repo-slug,
+.repo-footer:focus-visible .repo-slug {
+  color: var(--aq-text-primary);
+  text-decoration: underline;
+}
+
+.repo-footer:focus-visible {
+  outline: 2px solid var(--aq-text-primary);
+  outline-offset: 4px;
+  border-radius: var(--r-default);
+}
+
 .repo-avatar {
   width: 20px;
   height: 20px;
