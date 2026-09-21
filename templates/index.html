@@ -65,7 +65,8 @@
         <label class="sort-field">
           Sort
           <select id="sort-select">
-            <option value="name" selected>Name (A-Z)</option>
+            <option value="recommended" selected>Recommended</option>
+            <option value="name">Name (A-Z)</option>
             <option value="updated">Recently updated</option>
             <option value="added">Recently added</option>
           </select>
@@ -86,7 +87,7 @@
 
       <div class="repo-grid list">
         {% for repo in repos %}
-      <article class="repo-card" data-is-template="{{ repo.is_template | lower }}" data-topics="{{ repo.topics | join(' ') }}" data-updated="{{ repo.updated_at }}" data-added="{{ repo.added_at }}" data-source="{{ repo.source }}">
+      <article class="repo-card" data-rank="{{ loop.index0 }}" data-is-template="{{ repo.is_template | lower }}" data-topics="{{ repo.topics | join(' ') }}" data-updated="{{ repo.updated_at }}" data-added="{{ repo.added_at }}" data-source="{{ repo.source }}">
         <div class="repo-card-head">
           {% if repo.icons or repo.is_template %}
           <div class="repo-icons-row">
@@ -220,7 +221,14 @@
   }
 
   function applySort() {
-    if (sortSelect.value === "updated") {
+    if (sortSelect.value === "recommended") {
+      repoList.sort("recommended", {
+        order: "asc",
+        sortFunction: function (a, b) {
+          return Number(a.elm.dataset.rank) - Number(b.elm.dataset.rank);
+        },
+      });
+    } else if (sortSelect.value === "updated") {
       repoList.sort("updated", { order: "desc" });
     } else if (sortSelect.value === "added") {
       repoList.sort("added", { order: "desc" });

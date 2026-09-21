@@ -19,6 +19,9 @@ A repo can match more than one topic (e.g. both ``kafka`` and ``python``);
 ``resolve_logos`` returns every match, in tier order, so the caller can show
 them as a row of icons. The repo owner's avatar is shown separately as a
 thumbnail, regardless of whether any topic matched.
+
+Official project marks missing from these catalogs are vendored under
+``static/images/brands/`` and appended to the row.
 """
 
 from __future__ import annotations
@@ -50,6 +53,13 @@ AIVEN_SERVICE_ICONS = {
     "grafana": "grafana.svg",
 }
 
+# Official project marks not available in the icon catalogs. See
+# static/images/brands/README.md for sources.
+PROJECT_ICONS = {
+    "litellm": "/static/images/brands/litellm.webp",
+    "langfuse": "/static/images/brands/langfuse.svg",
+}
+
 # topic -> devicon icon slug (uses the colored "-original" variant)
 DEVICON_TOPICS = {
     "python": "python",
@@ -72,6 +82,14 @@ DEVICON_TOPICS = {
 # cloud, orchestration, vendor tools, etc.)
 SIMPLEICONS_TOPICS = {
     "n8n": "n8n",
+    "metabase": "metabase",
+    "streamlit": "streamlit",
+    "langgraph": "langgraph",
+    "temporal": "temporal",
+    "hasura": "hasura",
+    "umami": "umami",
+    "jaeger": "jaeger",
+    "mcp": "modelcontextprotocol",
     "kubernetes": "kubernetes",
     "k8s": "kubernetes",
     "terraform": "terraform",
@@ -190,5 +208,9 @@ def resolve_logos(topics: list[str], *, client: httpx.Client) -> list[str]:
                 url = f"/static/images/simpleicons/{slug}.svg"
                 if url not in logos:
                     logos.append(url)
+
+    for topic in topics:
+        if (url := PROJECT_ICONS.get(topic)) and url not in logos:
+            logos.append(url)
 
     return logos
