@@ -62,7 +62,7 @@ optional and falls back to data pulled from the GitHub API at build time
   }
   ```
 
-  This changes the card title and "View code" links to
+  This changes the card title link to
   `github.com/owner/repo/tree/<branch>`, and "Fork on GitHub" to
   `github.com/owner/repo/fork?ref=<branch>` so the fork starts from that
   branch. GitHub API-sourced data (description, topics, template detection)

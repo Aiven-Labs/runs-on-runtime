@@ -580,14 +580,6 @@ main {
   font-size: 14px;
 }
 
-.repo-updated,
-.repo-added {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--aq-text-inactive);
-  margin-top: 2px;
-}
-
 .count-label {
   margin-left: auto;
   font-family: var(--font-mono);
