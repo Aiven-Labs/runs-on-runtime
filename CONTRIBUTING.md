@@ -61,7 +61,7 @@ on `main` yet:
 }
 ```
 
-This changes the "View code" and card title links to
+This changes the card title link to
 `github.com/owner/repo/tree/<branch>`, and the "Fork on GitHub" link to
 `github.com/owner/repo/fork?ref=<branch>` so the fork starts from that
 branch. It does not affect the GitHub API lookups (description, topics,
