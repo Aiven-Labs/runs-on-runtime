@@ -2,12 +2,8 @@
 {% block content %}
 <section class="page-hero">
   <div class="container">
-    <h1>Repos that run on Aiven Runtime</h1>
-    <p>GitHub repositories that are deployed on Aiven Runtime. Fork one to test it out for yourself, or share something you have created by adding your project.</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="/contribute.html">Add your project</a>
-      <a class="btn btn-secondary" href="https://aiven.io/docs/products/runtime" target="_blank" rel="noreferrer">Documentation</a>
-    </div>
+    <h1>Explore Aiven Runtime templates</h1>
+    <p>Find an app or starter, make it your own on GitHub, and deploy it alongside your data. Built something useful? Share it here.</p>
   </div>
 </section>
 
@@ -89,7 +85,7 @@
         {% for repo in repos %}
       <article class="repo-card" data-rank="{{ loop.index0 }}" data-is-template="{{ repo.is_template | lower }}" data-topics="{{ repo.topics | join(' ') }}" data-updated="{{ repo.updated_at }}" data-added="{{ repo.added_at }}" data-source="{{ repo.source }}">
         <div class="repo-card-head">
-          {% if repo.icons or repo.is_template or repo.license_name %}
+          {% if repo.icons or repo.is_template %}
           <div class="repo-icons-row">
             {% if repo.icons %}
             <div class="repo-icons">
@@ -98,11 +94,6 @@
               {% endfor %}
             </div>
             {% endif %}
-            {% if repo.license_name %}
-            <a class="repo-license" href="{{ repo.license_url }}" title="{{ repo.license_name }}" aria-label="Repository license: {{ repo.license_name }}">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M7 3h10v18l-5-3-5 3V3Z"/><path d="m9 9 2 2 4-4"/></svg>
-            </a>
-            {% endif %}
             {% if repo.is_template %}
             <span class="badge-template">Template</span>
             {% endif %}
@@ -110,13 +101,6 @@
           {% endif %}
           <div class="repo-meta">
             <h2><a class="name" href="{{ repo.repo_url }}">{{ repo.name }}</a></h2>
-            <div class="repo-slug">{{ repo.owner }}/{{ repo.repo }}</div>
-            {% if repo.updated_display %}
-            <div class="repo-updated">Updated {{ repo.updated_display }}</div>
-            {% endif %}
-            {% if repo.added_display %}
-            <div class="repo-added">Added {{ repo.added_display }}</div>
-            {% endif %}
           </div>
         </div>
 
@@ -142,9 +126,11 @@
         </div>
 
         <div class="repo-actions">
-          <a class="btn-icon" href="{{ repo.repo_url }}" target="_blank" rel="noreferrer" aria-label="View code on GitHub">
-            <svg width="18" height="18" fill="currentColor" aria-hidden="true"><use href="#icon-github"/></svg>
+          {% if repo.license_name %}
+          <a class="repo-license" href="{{ repo.license_url }}" title="{{ repo.license_name }}" aria-label="Repository license: {{ repo.license_name }}">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M7 3h10v18l-5-3-5 3V3Z"/><path d="m9 9 2 2 4-4"/></svg>
           </a>
+          {% endif %}
           {% if repo.is_template %}
           <a class="btn btn-secondary" href="{{ repo.generate_url }}">Use this template</a>
           {% else %}
