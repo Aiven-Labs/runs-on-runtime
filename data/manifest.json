@@ -36,7 +36,13 @@
     "repo": "aiven-runtime-langgraph",
     "added": "2026-09-21",
     "description": "A Python/FastAPI app using the open-source LangGraph library, with a draft-and-review workflow, browser UI and authenticated API. Aiven PostgreSQL saves workflow state; demo mode needs no model-provider key.",
-    "topics": ["langgraph", "python", "fastapi", "postgresql", "workflow-orchestration"]
+    "topics": [
+      "langgraph",
+      "python",
+      "fastapi",
+      "postgresql",
+      "workflow-orchestration"
+    ]
   },
   {
     "name": "RAG and OpenSearch",
@@ -52,7 +58,15 @@
     "repo": "aiven-runtime-langfuse",
     "added": "2026-09-21",
     "description": "LLM observability with the Langfuse web UI and worker, Aiven PostgreSQL, ClickHouse and Valkey, plus an external S3-compatible bucket. A demo starter for fresh Langfuse v4 installations; tested with Cloudflare R2.",
-    "topics": ["langfuse", "llm", "observability", "postgresql", "clickhouse", "valkey", "s3"]
+    "topics": [
+      "langfuse",
+      "llm",
+      "observability",
+      "postgresql",
+      "clickhouse",
+      "valkey",
+      "s3"
+    ]
   },
   {
     "name": "MCP and Proxy",
@@ -167,5 +181,11 @@
     "owner": "aiven-labs",
     "repo": "valkey-admin-aiven-apps",
     "added": "2026-09-21"
+  },
+  {
+    "name": "PGAdmin",
+    "owner": "aiven-labs",
+    "repo": "aiven-runtime-pgadmin",
+    "added": "2026-09-22"
   }
 ]
