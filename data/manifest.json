@@ -195,5 +195,13 @@
     "added": "2026-09-23",
     "description": "Ready-to-deploy Keycloak + PostgreSQL 18 template for Aiven Runtime",
     "topics": ["keycloak", "postgresql", "identity-management", "sso"]
+  },
+  {
+    "name": "Kafbat UI",
+    "owner": "pvr-aiven",
+    "repo": "aiven-kafbat-ui-runtime",
+    "added": "2026-09-24",
+    "description": "Deploy Kafbat UI on Aiven Runtime, in front of one or several Kafka clusters",
+    "topics": ["kafka", "ui"]
   }
 ]
