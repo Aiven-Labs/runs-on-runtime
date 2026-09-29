@@ -136,6 +136,7 @@ SIMPLEICONS_TOPICS = {
     "pytorch": "pytorch",
     "argo": "argo",
     "argocd": "argo",
+    "keycloak": "keycloak",
 }
 
 

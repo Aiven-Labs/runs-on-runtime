@@ -628,16 +628,23 @@ main {
 
 .repo-icons {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--sp-3);
   flex: none;
 }
 
 .repo-icon {
-  width: 40px;
-  height: 40px;
+  box-sizing: border-box;
+  width: 44px;
+  height: 44px;
+  padding: 8px;
   object-fit: contain;
   flex: none;
+  border-radius: 50%;
+  background: var(--aq-bg-medium);
+  border: 2px solid var(--aq-bg-layer);
+}
+
+.repo-icon + .repo-icon {
+  margin-left: -12px;
 }
 
 .repo-card-head .repo-meta {
