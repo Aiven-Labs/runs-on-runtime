@@ -203,5 +203,13 @@
     "added": "2026-09-24",
     "description": "Deploy Kafbat UI on Aiven Runtime, in front of one or several Kafka clusters",
     "topics": ["kafka", "ui"]
+  },
+  {
+    "name": "SpacetimeDB",
+    "owner": "Aiven-Labs",
+    "repo": "spacetimedb-aiven-runtime",
+    "added": "2026-10-06",
+    "description": "Run SpacetimeDB on Aiven Runtime: builds your TypeScript module into a ready-to-publish game/realtime server",
+    "topics": ["spacetimedb", "realtime", "typescript", "game-server"]
   }
 ]
