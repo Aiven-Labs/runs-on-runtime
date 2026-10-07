@@ -24,6 +24,8 @@ uv run python app.py   # builds the static site into output/
 Set `GITHUB_TOKEN` in your environment to raise the GitHub API rate limit
 used for the enrichment lookups (optional).
 
+Snowplow and OneTrust run only when the page host is `templates.aiven.io`.
+
 ## Docker
 
 ```bash

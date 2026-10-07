@@ -14,17 +14,17 @@
 
       <div class="filters-group">
         <label class="filter-checkbox">
-          <input type="checkbox" class="source-checkbox" value="aiven">
+          <input type="checkbox" class="source-checkbox" value="aiven" data-track-filter>
           <span class="checkbox-box" aria-hidden="true"></span>
           <span class="filter-checkbox-label">Aiven authored</span>
         </label>
         <label class="filter-checkbox">
-          <input type="checkbox" class="source-checkbox" value="community">
+          <input type="checkbox" class="source-checkbox" value="community" data-track-filter>
           <span class="checkbox-box" aria-hidden="true"></span>
           <span class="filter-checkbox-label">Community authored</span>
         </label>
         <label class="filter-checkbox">
-          <input type="checkbox" id="templates-only">
+          <input type="checkbox" id="templates-only" value="templates-only" data-track-filter>
           <span class="checkbox-box" aria-hidden="true"></span>
           <span class="filter-checkbox-label">Templates only</span>
         </label>
@@ -38,7 +38,7 @@
         <div class="filters-section-body">
           {% for topic in topics %}
           <label class="filter-checkbox filter-checkbox-sm">
-            <input type="checkbox" value="{{ topic.name }}" class="topic-checkbox">
+            <input type="checkbox" value="{{ topic.name }}" class="topic-checkbox" data-track-filter>
             <span class="checkbox-box" aria-hidden="true"></span>
             <span class="filter-checkbox-label">{{ topic.name }}</span>
             <span class="filter-checkbox-num">{{ topic.count }}</span>
@@ -55,12 +55,12 @@
             <circle cx="7" cy="7" r="5" stroke="#B5B5B7" stroke-width="1.5"></circle>
             <path d="M11 11l3.5 3.5" stroke="#B5B5B7" stroke-width="1.5" stroke-linecap="round"></path>
           </svg>
-          <input class="search" type="search" placeholder="Search repos, owners, topics" aria-label="Search repos">
+          <input class="search" type="search" placeholder="Search repos, owners, topics" aria-label="Search repos" data-track-search>
         </label>
 
         <label class="sort-field">
           Sort
-          <select id="sort-select">
+          <select id="sort-select" data-track-change="sort">
             <option value="recommended" selected>Recommended</option>
             <option value="name">Name (A-Z)</option>
             <option value="updated">Recently updated</option>
@@ -76,7 +76,7 @@
         <div class="title">No repos match</div>
         <p>Try a different search term, or add your project to the directory.</p>
         <div class="empty-state-actions">
-          <button type="button" class="btn btn-secondary" id="clear-filters">Clear filters</button>
+          <button type="button" class="btn btn-secondary" id="clear-filters" data-track-click="clear filters">Clear filters</button>
           <a class="btn btn-primary" href="/contribute.html">Add your project</a>
         </div>
       </div>
@@ -97,7 +97,7 @@
           </div>
           {% endif %}
           <div class="repo-meta">
-            <h2><a class="name" href="{{ repo.repo_url }}">{{ repo.name }}</a></h2>
+            <h2><a class="name" href="{{ repo.repo_url }}" data-track-click="repository title" data-track-value="{{ repo.owner }}/{{ repo.repo }}">{{ repo.name }}</a></h2>
           </div>
         </div>
 
@@ -110,12 +110,12 @@
         {% if repo.topics %}
         <ul class="repo-topics topics">
           {% for topic in repo.topics %}
-          <li>{{ topic }}</li>
+          <li data-track-click="topic chip" data-track-filter-update data-track-value="{{ topic }}">{{ topic }}</li>
           {% endfor %}
         </ul>
         {% endif %}
 
-        <a class="repo-footer" href="{{ repo.repo_url }}" aria-label="View {{ repo.owner }}/{{ repo.repo }} on GitHub">
+        <a class="repo-footer" href="{{ repo.repo_url }}" aria-label="View {{ repo.owner }}/{{ repo.repo }} on GitHub" data-track-click="repository attribution" data-track-value="{{ repo.owner }}/{{ repo.repo }}">
           {% if repo.avatar %}
           <img class="repo-avatar" src="{{ repo.avatar }}" alt="" loading="lazy">
           {% endif %}
@@ -124,9 +124,9 @@
 
         <div class="repo-actions">
           {% if repo.is_template %}
-          <a class="btn btn-secondary" href="{{ repo.generate_url }}">Use this template</a>
+          <a class="btn btn-secondary" href="{{ repo.generate_url }}" data-track-click="use template button" data-track-value="{{ repo.owner }}/{{ repo.repo }}">Use this template</a>
           {% else %}
-          <a class="btn btn-secondary" href="{{ repo.fork_url }}" target="_blank" rel="noreferrer">Fork on GitHub</a>
+          <a class="btn btn-secondary" href="{{ repo.fork_url }}" target="_blank" rel="noreferrer" data-track-click="fork button" data-track-value="{{ repo.owner }}/{{ repo.repo }}">Fork on GitHub</a>
           {% endif %}
         </div>
 

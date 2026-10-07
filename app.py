@@ -34,7 +34,9 @@ def mark_source(repos: list[dict]) -> list[dict]:
     """Tag each repo as an Aiven-owned template vs a community contribution,
     based on whether its GitHub owner is one of the aiven-labs orgs."""
     for repo in repos:
-        repo["source"] = "aiven" if repo["owner"].lower().startswith("aiven") else "community"
+        repo["source"] = (
+            "aiven" if repo["owner"].lower().startswith("aiven") else "community"
+        )
     return repos
 
 
@@ -54,9 +56,7 @@ def topic_counts(repos: list[dict]) -> list[dict]:
     )
     return [
         {"name": name, "count": count}
-        for name, count in sorted(
-            counts.items(), key=lambda item: (-item[1], item[0])
-        )
+        for name, count in sorted(counts.items(), key=lambda item: (-item[1], item[0]))
     ]
 
 
