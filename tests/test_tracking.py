@@ -33,7 +33,7 @@ def test_tracking_defaults_to_cookieless_anonymous_events():
     assert 'var COLLECTOR_URL = "https://dc.aiven.io"' in tracking
     assert 'var SNOWPLOW_APP_ID = "templates-aiven-io"' in tracking
     assert (
-        'var ONETRUST_DOMAIN_SCRIPT = "01a11528-d2ee-7a99-9a30-01ce237f392b-test"'
+        'var ONETRUST_DOMAIN_SCRIPT = "01a11528-d2ee-7a99-9a30-01ce237f392b"'
         in tracking
     )
     assert "withServerAnonymisation: true" in tracking
