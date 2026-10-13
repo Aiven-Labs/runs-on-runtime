@@ -8,7 +8,7 @@
 
   var COLLECTOR_URL = "https://dc.aiven.io";
   var SNOWPLOW_APP_ID = "templates-aiven-io";
-  var ONETRUST_DOMAIN_SCRIPT = "01a11528-d2ee-7a99-9a30-01ce237f392b-test";
+  var ONETRUST_DOMAIN_SCRIPT = "01a11528-d2ee-7a99-9a30-01ce237f392b";
   const ONETRUST_UX_COOKIE_GROUP_ID = "115";
   const ONETRUST_PERFORMANCE_COOKIE_GROUP_ID = "2";
 
