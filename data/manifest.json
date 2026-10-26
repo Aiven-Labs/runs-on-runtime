@@ -215,9 +215,9 @@
   {
     "name": "DuckDB 2.0",
     "owner": "Aiven-Labs",
-    "repo": "duckdb-runtime",
+    "repo": "duckdb2-runtime",
     "added": "2026-10-26",
-    "description": "Deploy DuckDB2 on Aiven Runtime",
+    "description": "Deploy a Quack Server (for DuckDB2) on Aiven Runtime",
     "topics": ["duckdb", "analytics", "database"]
   }
 ]
