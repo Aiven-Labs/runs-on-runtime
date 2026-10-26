@@ -211,5 +211,13 @@
     "added": "2026-10-06",
     "description": "Run SpacetimeDB on Aiven Runtime: builds your TypeScript module into a ready-to-publish game/realtime server",
     "topics": ["spacetimedb", "realtime", "typescript", "game-server"]
+  },
+  {
+    "name": "DuckDB 2.0",
+    "owner": "Aiven-Labs",
+    "repo": "duckdb-runtime",
+    "added": "2026-10-26",
+    "description": "Deploy DuckDB2 on Aiven Runtime",
+    "topics": ["duckdb", "analytics", "database"]
   }
 ]
